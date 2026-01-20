@@ -11,5 +11,9 @@
 ## Start
 
 ```bash
+# Copy and configure environment variables
+cp .env.example .env
+# Edit .env with your passwords and secrets
+# Start services
 docker-compose up -d
 ```
