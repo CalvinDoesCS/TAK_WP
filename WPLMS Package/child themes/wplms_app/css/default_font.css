@@ -1,0 +1,35 @@
+@font-face {
+  font-family: system;
+  font-style: normal;
+  font-weight: 300;
+  src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+    font-family: 'roboto_slabregular';
+    src: url('fonts/RobotoSlab-Regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'roboto_slabbold';
+    src: url('fonts/RobotoSlab-Bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'roboto_slablight';
+    src: url('fonts/RobotoSlab-Light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'roboto_slabthin';
+    src: url('fonts/RobotoSlab-Thin-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

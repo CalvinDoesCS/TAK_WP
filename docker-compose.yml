@@ -1,0 +1,156 @@
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: wordpress_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${WORDPRESS_DB_NAME:-wordpress}
+      MYSQL_USER: ${WORDPRESS_DB_USER:-wordpress}
+      MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD:-wordpress}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_password}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - wordpress_network
+
+  # WordPress Backend (Headless CMS with NCMAZ)
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    container_name: wordpress_app
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-wordpress}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-wordpress}
+      WORDPRESS_DEBUG: 0
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./NCMAZ_FAUST/wp-plugin/ncmaz-faust-core:/var/www/html/wp-content/plugins/ncmaz-faust-core
+      - ./php-custom.ini:/usr/local/etc/php/conf.d/custom.ini
+    networks:
+      - wordpress_network
+
+  # NCMAZ Next.js Frontend (Headless WordPress)
+  ncmaz-frontend:
+    build:
+      context: ./NCMAZ_FAUST/front-end/ncmaz-faust
+      dockerfile: Dockerfile
+    container_name: ncmaz_nextjs
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./NCMAZ_FAUST/front-end/ncmaz-faust:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_WORDPRESS_URL=http://host.docker.internal:8080
+      - FAUST_SECRET_KEY=${FAUST_SECRET_KEY}
+      - NEXT_PUBLIC_URL=http://localhost:3000
+      - NEXT_PUBLIC_SITE_DIRECTION=ltr
+      - NEXT_PUBLIC_SITE_GEAR_ICON=false
+      - NEXT_PUBLIC_SITE_API_METHOD=GET
+      - FAUSTWP_SECRET_KEY=${FAUSTWP_SECRET_KEY}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - wordpress_network
+    depends_on:
+      - wordpress
+
+  # phpMyAdmin (Database Management)
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_password}
+    networks:
+      - wordpress_network
+
+  # Octarine Admin Dashboard
+  octarine:
+    build:
+      context: ./Octarine Bundle/Source
+      dockerfile: Dockerfile
+    container_name: octarine_dashboard
+    restart: always
+    ports:
+      - "5500:5173"
+    volumes:
+      - ./Octarine Bundle/Source:/app
+      - /app/node_modules
+    networks:
+      - wordpress_network
+
+  # Open Core Business Suite Database
+  opencore_db:
+    image: mysql:8.0
+    container_name: opencore_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${OPENCORE_DB_NAME:-opencore}
+      MYSQL_USER: ${OPENCORE_DB_USER:-opencore}
+      MYSQL_PASSWORD: ${OPENCORE_DB_PASSWORD:-opencore}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_password}
+    volumes:
+      - opencore_db_data:/var/lib/mysql
+    networks:
+      - wordpress_network
+
+  # Open Core Business Suite (Laravel SaaS)
+  opencore:
+    build:
+      context: ./Open Core Business Suite - SaaS V5.0.1/open_core_bs
+      dockerfile: Dockerfile
+    container_name: opencore_app
+    restart: always
+    ports:
+      - "4000:80"
+      - "4443:443"
+      - "5173:5173"
+    depends_on:
+      - opencore_db
+      - wordpress
+    volumes:
+      - ./Open Core Business Suite - SaaS V5.0.1/open_core_bs:/var/www/html
+      - /var/www/html/vendor
+      - /var/www/html/node_modules
+    environment:
+      - APP_NAME=Open Core BS
+      - APP_ENV=production
+      - APP_DEBUG=true
+      - APP_URL=https://localhost:4443
+      - DB_CONNECTION=mysql
+      - DB_HOST=opencore_db
+      - DB_PORT=3306
+      - DB_DATABASE=${OPENCORE_DB_NAME:-opencore}
+      - DB_USERNAME=${OPENCORE_DB_USER:-opencore}
+      - DB_PASSWORD=${OPENCORE_DB_PASSWORD:-opencore}
+      - QUEUE_CONNECTION=sync
+      - WORDPRESS_API_URL=http://host.docker.internal:8080/wp-json
+      - NCMAZ_URL=http://host.docker.internal:3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - wordpress_network
+
+volumes:
+  db_data:
+  opencore_db_data:
+
+networks:
+  wordpress_network:
+    driver: bridge

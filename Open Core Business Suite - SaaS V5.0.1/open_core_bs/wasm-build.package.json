@@ -1,0 +1,13 @@
+{
+  "name": "opencore-wasm-build",
+  "version": "1.0.0",
+  "description": "Build configuration for OpenCore WASM module",
+  "scripts": {
+    "build:wasm": "asc wasm/assembly/index.ts --outFile ../../public/wasm/opencore.wasm --optimize --exportRuntime",
+    "build:wasm:debug": "asc wasm/assembly/index.ts --outFile ../../public/wasm/opencore.wasm --debug",
+    "build:wasm:text": "asc wasm/assembly/index.ts --outFile ../../public/wasm/opencore.wat --textFile"
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.27.0"
+  }
+}

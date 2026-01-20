@@ -1,0 +1,186 @@
+[
+  {
+    "field_group_id": 1,
+    "group": "Base",
+    "fields": [
+      {
+        "id": 12,
+        "type": "datebox",
+        "name": "Date of Birth",
+        "is_required": 1,
+        "options": []
+      },
+      {
+        "id": 3,
+        "type": "radio",
+        "name": "Gender",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 2,
+        "type": "number",
+        "name": "Age",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 15,
+        "type": "country",
+        "name": "Country",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 18,
+        "type": "repeatable",
+        "name": "Learnings",
+        "is_required": 0,
+        "options": []
+      }
+    ]
+  },
+  {
+    "field_group_id": 4,
+    "group": "Contact",
+    "fields": [
+      {
+        "id": 7,
+        "type": "textbox",
+        "name": "Email",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 9,
+        "type": "telephone",
+        "name": "Phone Number",
+        "is_required": 1,
+        "options": []
+      },
+      {
+        "id": 17,
+        "type": "social",
+        "name": "Social",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 13,
+        "type": "textarea",
+        "name": "Address",
+        "is_required": 0,
+        "options": []
+      }
+    ]
+  },
+  {
+    "field_group_id": 3,
+    "group": "Bio",
+    "fields": [
+      {
+        "id": 14,
+        "type": "gallery",
+        "name": "Photos",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 8,
+        "type": "textarea",
+        "name": "About",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 20,
+        "type": "selectbox",
+        "name": "Language",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 29,
+        "type": "textarea",
+        "name": "Introduction",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 30,
+        "type": "video",
+        "name": "Promo",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 31,
+        "type": "checkbox",
+        "name": "Proficiency Level",
+        "is_required": 0,
+        "options": []
+      }
+    ]
+  },
+  {
+    "field_group_id": 2,
+    "group": "Experience",
+    "fields": [
+      {
+        "id": 10,
+        "type": "textbox",
+        "name": "Current Position",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 11,
+        "type": "repeatable",
+        "name": "Past work",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 48,
+        "type": "repeatable",
+        "name": "Resume",
+        "is_required": 0,
+        "options": []
+      },
+      {
+        "id": 49,
+        "type": "table",
+        "name": "Qualitification",
+        "is_required": 0,
+        "options": [],
+        "meta":{
+            "vibebp_profile_field_table":{
+                "rows": [
+                  {"name": "Subject Expertise","id": "0.17360971322914"},
+                  {"name": "Tutorly Score","id": "0.87764497691994"},
+                  {"name": "Bachelors","id": "0.68565985624626"},
+                  {"name": "Masters","id": "0.33332547078583"},
+                  {"name": "Examination Score","id": "0.69372931648824"}
+                ],
+                "columns": [
+                  {"name": "Qualification","id": "0.26183206581473"},
+                  {"name": "Grade","id": "0.99784473927988"}
+                ],
+                "values": [
+                  {"row": "0.17360971322914","column": "0.26183206581473","type": "option","options": [{"lable": "A Level","value": "a"},{"lable": "B Level","value": "b"},{"lable": "C Level","value": "c"}]},
+                  {"row": "0.17360971322914","column": "0.99784473927988","type": "option","options": [{"lable": "A","value": "a"},{"lable": "B","value": "b"},{"lable": "C","value": "c"}]},
+                  {"row": "0.87764497691994","column": "0.26183206581473","type": "text"},
+                  {"row": "0.87764497691994","column": "0.99784473927988","type": "text"},
+                  {"row": "0.68565985624626","column": "0.26183206581473","type": "text"},
+                  {"row": "0.68565985624626","column": "0.99784473927988","type": "text"},
+                  {"row": "0.33332547078583","column": "0.26183206581473","type": "text"},
+                  {"row": "0.33332547078583","column": "0.99784473927988","type": "text"},
+                  {"row": "0.69372931648824","column": "0.26183206581473","type": "text"},
+                  {"row": "0.69372931648824","column": "0.99784473927988","type": "text"}
+                ]
+              }
+            }
+      }
+    ]
+  }
+]

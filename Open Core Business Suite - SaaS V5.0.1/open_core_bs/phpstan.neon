@@ -1,0 +1,32 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - phpstan-baseline.neon
+
+parameters:
+    paths:
+        - app/
+        - Modules/
+
+    # Start with level 0 (loose), increase gradually to catch more issues
+    # Level 0: Basic checks - undefined variables, functions, methods
+    # Level 5: Moderate - type checking on function arguments and returns
+    # Level 9: Strict - full type safety
+    level: 0
+
+    # Ignore common Laravel patterns that trigger false positives
+    ignoreErrors:
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder::#'
+        - '#Call to an undefined method Illuminate\\Database\\Query\\Builder::#'
+
+    excludePaths:
+        - Modules/*/database/
+        - Modules/*/resources/
+        - Modules/*/tests/
+        - app/Console/Commands/SetupOpenCoreBSDemoCommand.php
+
+    # Don't report unmatched ignored errors (prevents noise during initial setup)
+    reportUnmatchedIgnoredErrors: false
+
+    # Memory limit for large codebases
+    parallel:
+        maximumNumberOfProcesses: 4

@@ -1,0 +1,21 @@
+/**
+ * Data Import/Export Module - Index Page Styles
+ */
+
+.type-card .card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.type-card .card:hover {
+    border-color: rgba(var(--bs-primary-rgb), 0.3) !important;
+}
+
+.avatar-lg {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}

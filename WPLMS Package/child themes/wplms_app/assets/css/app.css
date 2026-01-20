@@ -1,0 +1,331 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "root.css";
+@import "generic.css";
+@import "blocks.css";
+@import "woocommerce.css";
+
+
+body{
+    overflow: visible;
+    font-family: var(--body_font_family);
+    background: var(--body_bg);
+    color: var(--content_color);
+    &.expanded_side_menu{
+        
+
+        .app_header{
+            flex:  0 0 64px;
+            nav > ul.menu > li{
+                &.label{
+                    display: none;
+                }
+                & > a >span+span,& > a >svg+span,{
+                    display: none;
+                }
+            }
+            .dark_light_switch svg+span,
+            .vibebp-login-text{
+                display: none;
+            }
+            .loggedin_user{
+
+
+                .vibebp_name {
+                    display: none;
+                }
+                &:hover > .vibebp_name {
+                    padding: 5px;
+                    display: block;
+                    position: absolute;
+                    left: calc(100% + 1.5rem);
+                    top: 0;
+                    background: var(--header_bg);
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+    .global-site-content-wrapper{
+        transition: all 0.5s;
+    }
+
+    .container {
+        margin: 0 auto;
+    }
+    #title{
+        padding: 1.5rem 0 3rem;
+        h1{color: Var(--title_color);}
+    }
+    input[type="submit"],
+    .button{
+        background: var(--primary_bg);
+        line-height: 2.5;
+        color: var(--primary_color);
+        border-radius: 5px;
+        padding: 0.5rem;
+    }
+    #content{
+        max-width: calc(100vw - 240px);
+        margin: auto;
+    }
+    .site-content{
+        max-width: 100vw;
+    }
+
+    .dark_light_switch{
+        .dark_theme{display: flex; gap: 0.5rem;font-weight: 600;}
+        .light_theme {display: none;}
+    }
+    &.dark_theme{
+        .dark_light_switch{
+            .dark_theme{display: none;}
+            .light_theme{display: flex;gap: 0.5rem;font-weight: 600;}
+        }
+
+        .light_theme_display{
+            display: none;
+        }
+        .dark_theme_display{
+            display: flex;
+        }
+    }   
+
+}
+
+.light_theme_display{
+    display: flex;
+}
+.dark_theme_display{
+    display: none;
+}
+.row{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    .col-md-12{
+        width: 100%;
+    }
+    .col-md-9{
+        flex: 9 9 240px;
+    }
+    .col-md-8{
+        flex: 8 8 240px;
+    }
+    .col-md-6{
+        flex: 6 6 240px;
+    }
+    .col-md-3{
+        flex: 3 3 120px;
+    }
+
+    .col-md-4{
+        flex: 4 4 160px;
+    }
+
+}
+.app_header{
+    height: 100vh;
+    display: flex;
+    flex: 0 0 180px;
+    position: sticky;
+    top: 0;
+    overflow: visible;
+    transition: all 0.5s;
+    background: var(--header_bg);
+    color: var(--header_color);
+    border-right: 1px solid var(--border);
+    a.loggedin_user{
+        img{
+            width: 48px;
+        }
+    }
+    
+    &.site_header{
+        path:not([fill]){
+            fill: var(--header_color);
+        }
+        nav{
+            & > ul.menu > li{
+                & > a{
+                    font-size: var(--root-menu-font-size);
+                    text-transform: none;
+                    color: var(--header_color);
+                    font-family: var(--top_nav_font);
+                    path:not([fill]){fill: var(--header_color);}
+                }
+                &.current-menu-item,&.current_page_item{
+                    & > a{
+                        color: var(--primary_bg);
+                        path:not([fill]){fill: var(--primary_bg);}
+                        & > strong{font0weight: 600;}
+                    }
+                }
+            }
+            .megadrop{
+                background: var(--sub-menu-background-color);
+                font-size: var(--sub-menu-font-size);
+            }
+        }
+
+        .user_menu.active{
+            top: auto;
+            bottom: 0;
+            left: calc(100% + 1.5rem);
+            border-radius: 5px;
+
+            &:after{
+                top: auto;
+                bottom: 10px;
+                right: auto;
+                left: -17px;
+                border-color: transparent var(--dark) transparent transparent;
+            }
+        } 
+    }
+}
+
+.main_block_header{
+    background: var(--header_top_bg);
+    font-family: var(--top_nav_font);
+    color: var(--header_top_color);
+    border-bottom: 1px solid var(--border);
+    .minimise_side_header{
+        display: none;
+    }
+}
+
+
+#logo{
+    padding-top: var(--logo_top_padding);
+    padding-bottom: var(--logo_bottom_padding);
+    flex: 10 0 120px;
+    img{
+        max-height: var(--logo_height);width: auto;
+    }
+    #header_mobile_logo,#header_alt_logo{
+        display: none;
+    }
+}
+
+footer.site_footer{
+    padding: 2rem 1.5rem;
+    background: var(--footer_bg);
+    color: var(--footer_color);
+    margin-top: 2rem;
+}
+div#scrolltop {
+    display: none;
+    &.active{
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 999;
+        background: var(--footer_bottom_bg);
+        padding: 0.75rem;
+        color:  var(--footer_bottom_color);
+        border-radius: 2px;
+        &> a {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: center;
+            & > span {
+                font-size: 11px;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px){
+
+   
+    .topmenu{
+        display: none;
+    }
+
+    body{
+        .app_header{
+            display: none;
+            nav > ul.menu > li{
+                margin: 0 -0.5rem;
+            }
+        }
+        .main_block_header{
+            max-width: 100vw;
+            potison: relative;
+            .searchbox{
+                position: static;
+                border: none;
+                display: flex;
+                align-items: center;
+                input{
+                    display: none;
+                }
+                &.active{
+                    input{
+                        display: flex;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;    
+                        width: 100%;
+                        font-size: 1rem;
+                        padding: 0.5rem;
+                        background: var(--header_top_bg);
+                        color: var(--header_top_color);
+                        border-top: 1px solid var(--border);
+                    }
+                }
+            }
+           .minimise_side_header{
+                display: flex;
+                cursor:pointer;
+                path{
+                    fill: var(--header_color);
+                }
+            }
+        }
+       
+        &.expanded_side_menu{
+            .app_header{
+                display: flex;
+                max-width:none;
+                height: 100vh;
+                padding: 0.5rem;
+                transition: all 0.5s;
+
+                nav > ul.menu > li > a >span+span, 
+                nav > ul.menu > li > a >svg+span,
+                .vibebp-login-text{
+                    display: flex;
+                }
+
+                
+                flex: 0 0 180px;
+                nav > ul.menu > li > a >svg+span,
+                nav > ul.menu > li > a >span+span{
+                    display: flex;
+                }
+                nav > ul.menu > li.label{
+                    display: flex;
+                    font-weight: 600;
+                }
+                
+                
+            }
+
+            .main_block_header .minimise_side_header{
+                display: none;
+            }
+            .global-site-content-wrapper{
+                transform: none;
+                max-width: none;
+            }
+        }
+        #content{
+            max-width: 100vw;
+        }
+    }
+}

@@ -1,0 +1,41 @@
+{
+	"name": "wplmsApp",
+	"version": "5.0.0",
+	"description": "WPLMS App Theme.",
+	"author": "VibeThemes",
+	"theme_uri": "https://wplms.io",
+	"author_uri": "https://vibethemes.com",
+	"text_domain": "vibe",
+	"license": "MIT",
+	"scripts": {
+		"production:css-app": "cross-env NODE_ENV=development tailwindcss -i ./assets/css/app.css -o ./css/app.css --postcss --minify",
+		"production:css-editor": "cross-env NODE_ENV=development tailwindcss -i ./assets/css/editor-style.css -o ./css/editor-style.css --postcss --minify",
+		"production:js": "cross-env NODE_ENV=development ./node_modules/.bin/esbuild ./assets/js/app.js --bundle --outfile=./js/app.js --minify",
+		"dev:css-app": "cross-env NODE_ENV=development tailwindcss -i ./assets/css/app.css -o ./css/app.css --postcss",
+		"dev:css-editor": "cross-env NODE_ENV=development tailwindcss -i ./assets/css/editor-style.css -o ./css/editor-style.css --postcss",
+		"dev:js": "cross-env NODE_ENV=development ./node_modules/.bin/esbuild ./assets/js/app.js --bundle --outfile=./js/app.js",
+		"watch:css-app": "cross-env NODE_ENV=development tailwindcss -i ./assets/css/app.css -o ./css/app.css --postcss --watch",
+		"watch:css-editor": "cross-env NODE_ENV=development tailwindcss -i ./assets/css/editor-style.css -o ./css/editor-style.css --postcss --watch",
+		"watch:js": "cross-env NODE_ENV=development ./node_modules/.bin/esbuild ./assets/js/app.js --bundle --outfile=./js/app.js --watch",
+		"production": "cross-env NODE_ENV=production concurrently \"npm run production:css-app\" \"npm run production:css-editor\" \"npm run production:js\"",
+		"dev": "cross-env NODE_ENV=development concurrently \"npm run dev:css-app\" \"npm run dev:css-editor\" \"npm run dev:js\"",
+		"watch": "cross-env NODE_ENV=development concurrently \"npm run watch:css-app\" \"npm run watch:css-editor\" \"npm run watch:js\"",
+		"browser-sync": "cross-env NODE_ENV=development browser-sync start --proxy \"tailpress.test\" --host=\"tailpress.test\" --no-inject-changes --files=\"./\"",
+		"watch-sync": "cross-env NODE_ENV=development concurrently \"npm run browser-sync\" \"npm run watch\""
+	},
+	"devDependencies": {
+		"@jeffreyvr/tailwindcss-tailpress": "^2.0.0",
+		"autoprefixer": "^10.4.0",
+		"browser-sync": "^2.26.14",
+		"concurrently": "^6.2.1",
+		"cross-env": "^6.0.3",
+		"esbuild": "^0.12.24",
+		"postcss": "^8.4.4",
+		"postcss-import": "^14.0.0",
+		"postcss-nested": "^5.0.3",
+		"postcss-nested-ancestors": "^2.0.0",
+		"resolve-url-loader": "^3.1.2",
+		"slideout": "^1.0.1",
+		"tailwindcss": "^3.1.0"
+	}
+}

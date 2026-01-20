@@ -1,0 +1,31 @@
+{
+    "name": "czappstudio/accountingcore",
+    "description": "Basic Accounting System for Income and Expense Tracking",
+    "authors": [
+        {
+            "name": "CZ App Studio",
+            "email": "support@czappstudio.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\AccountingCore\\": "",
+            "Modules\\AccountingCore\\App\\": "App/",
+            "Modules\\AccountingCore\\Database\\Factories\\": "Database/Factories/",
+            "Modules\\AccountingCore\\Database\\Seeders\\": "Database/Seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\AccountingCore\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,0 +1,113 @@
+[
+	{
+		"group":"Basic Information",
+		"field_group_id":1,
+		"fields":[
+			{
+				"name":"Gender",
+				"type":"radio",
+				"options":[
+					"Male","Female","Others"
+				]
+			},{
+				"name":"Birthday",
+				"type":"datebox"
+			},{
+				"name":"Skills",
+				"type":"checkboxes",
+				"options":[
+				"Branding","UI","UX","WebDesign","Packaging","Print","Editorial","Content Writing","SEO","Product","Analytics","IOT","Social Media"
+				]
+			},{
+				"name":"Country",
+				"type":"country"
+			},{
+				"name":"Age",
+				"type":"text"
+			}
+		]
+	},{
+		"group":"Contact Information",
+		"fields":[
+			{
+				"name":"E-mail",
+				"type":"textbox"
+			},{
+				"name":"Phone",
+				"type":"telephone"
+			},{
+				"name":"External Links",
+				"type":"social"
+			},{
+				"name":"Address",
+				"type":"textarea"
+			},{
+				"name":"Expertise",
+				"type":"repeatable"
+			}
+		]
+	},{
+		"group":"Work",
+		"fields":[
+			{
+				"name":"Job Experience",
+				"type":"textarea",
+				"meta":{
+					"member_type":"instructor"
+				}
+			},{
+				"name":"Current Position",
+				"type":"textarea",
+				"meta":{
+					"member_type":"instructor"
+				}
+			}
+		]
+	},{
+		"group":"Bio",
+		"fields":[
+			{
+				"name":"Language",
+				"type":"selectbox",
+				"options":[
+					"English","Spanish","Hindi","French","Russian","Bangla","Arabic","Portugese"
+				]
+			},{
+				"name":"About",
+				"type":"textarea"
+			},{
+				"name":"Introduction",
+				"type":"textarea"
+			},{
+				"name":"Photos",
+				"type":"gallery"
+			}
+		]
+	},{
+		"group":"Experience",
+		"fields":[
+			{
+				"name":"Current Position",
+				"type":"repeatable",
+				"meta":{
+					"vibebp_repeatable_type":"desc",
+					"member_type":"instructor"
+				}
+			},{
+				"name":"Past Work",
+				"type":"repeatable",
+				"meta":{
+					"vibebp_repeatable_type":"spaced",
+					"member_type":"instructor"
+				}
+			},{
+				"name":"Resume",
+				"type":"repeatable",
+				"meta":{
+					"vibebp_repeatable_type":"spaced",
+					"member_type":"instructor"
+				}
+			}
+		]
+	}
+]
