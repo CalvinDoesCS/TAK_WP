@@ -1,3 +1,0 @@
-name,code,notes,status,level,department_id,parent_id
-Manager,MNGR,Top level,active,1,1,2
-Supervisor,SPRV,Second level,active,2,3,1
