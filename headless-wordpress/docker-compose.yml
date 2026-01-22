@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   # MySQL Database
-  db:
+  wordpress-db:
     image: mysql:8.0
     container_name: headless-wp-db
     restart: unless-stopped
@@ -15,11 +13,12 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - wordpress-network
+      - app-network
 
   # WordPress
   wordpress:
     depends_on:
-      - db
+      - wordpress-db
     image: wordpress:latest
     container_name: headless-wp
     restart: unless-stopped
@@ -37,11 +36,12 @@ services:
       - ./config/php.ini:/usr/local/etc/php/conf.d/custom.ini
     networks:
       - wordpress-network
+      - app-network
 
   # WP-CLI for managing WordPress
   wpcli:
     depends_on:
-      - db
+      - wordpress-db
       - wordpress
     image: wordpress:cli
     container_name: headless-wp-cli
@@ -55,6 +55,7 @@ services:
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
     networks:
       - wordpress-network
+      - app-network
     command: tail -f /dev/null
 
 volumes:
@@ -63,3 +64,6 @@ volumes:
 networks:
   wordpress-network:
     driver: bridge
+  app-network:
+    external: true
+    name: app-network
