@@ -1,0 +1,20 @@
+# Ignore sensitive WordPress config
+wordpress/wp-config.php
+
+# Ignore uploads (can be large and contain user data)
+wordpress/wp-content/uploads/
+
+# Ignore environment files
+.env
+
+# Ignore logs
+*.log
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore backup files
+*.sql
+*.sql.gz
+backup/
