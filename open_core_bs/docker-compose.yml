@@ -7,6 +7,9 @@ services:
             args:
                 WWWGROUP: '${WWWGROUP}'
         image: sail-8.2/app
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
@@ -21,10 +24,11 @@ services:
             - '.:/var/www/html'
         networks:
             - sail
+            - app-network
         depends_on:
             - mysql
     mysql:
-        image: 'mysql/mysql-server:8.0'
+        image: 'mysql:8.0'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
@@ -39,6 +43,7 @@ services:
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
             - sail
+            - app-network
         healthcheck:
             test:
                 - CMD
@@ -50,6 +55,9 @@ services:
 networks:
     sail:
         driver: bridge
+    app-network:
+        external: true
+        name: app-network
 volumes:
     sail-mysql:
         driver: local
