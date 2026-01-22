@@ -1,0 +1,330 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPLMS PDF Certificates\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-25 14:07+0530\n"
+"PO-Revision-Date: 2020-05-25 14:08+0530\n"
+"Last-Translator: VibeThemes <vibethemes@gmail.com>\n"
+"Language-Team: VibeThemes <vibethemes@gmail.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/class.builder.php:39
+msgid "PDF Certificate Builder"
+msgstr ""
+
+#: includes/class.builder.php:48
+msgid "Raw Text"
+msgstr ""
+
+#: includes/class.builder.php:51
+msgid "Image"
+msgstr ""
+
+#: includes/class.builder.php:54
+msgid "Save"
+msgstr ""
+
+#: includes/class.builder.php:114
+msgctxt "pdf builder"
+msgid "Default Text"
+msgstr ""
+
+#: includes/class.builder.php:115
+msgctxt "pdf builder"
+msgid "Top Margin"
+msgstr ""
+
+#: includes/class.builder.php:116
+msgctxt "pdf builder"
+msgid "Left Margin"
+msgstr ""
+
+#: includes/class.builder.php:117
+msgctxt "pdf builder"
+msgid "Width"
+msgstr ""
+
+#: includes/class.builder.php:118
+msgctxt "pdf builder"
+msgid "Height"
+msgstr ""
+
+#: includes/class.builder.php:119
+msgctxt "pdf builder"
+msgid "Add Text"
+msgstr ""
+
+#: includes/class.builder.php:120
+msgctxt "pdf builder"
+msgid "Edit text"
+msgstr ""
+
+#: includes/class.builder.php:122
+msgctxt "pdf builder"
+msgid "Add Image"
+msgstr ""
+
+#: includes/class.builder.php:123
+msgctxt "pdf builder"
+msgid "Edit Image"
+msgstr ""
+
+#: includes/class.builder.php:124
+msgctxt "pdf builder"
+msgid "Remove"
+msgstr ""
+
+#: includes/class.builder.php:125
+msgctxt "pdf builder"
+msgid "Restore"
+msgstr ""
+
+#: includes/class.builder.php:126
+msgctxt "pdf builder"
+msgid "...saving"
+msgstr ""
+
+#: includes/class.builder.php:127
+msgctxt "pdf builder"
+msgid "Font Size"
+msgstr ""
+
+#: includes/class.builder.php:128
+msgctxt "pdf builder"
+msgid "Font Color"
+msgstr ""
+
+#: includes/class.builder.php:129
+msgctxt "pdf builder"
+msgid "Font Family"
+msgstr ""
+
+#: includes/class.builder.php:130
+msgctxt "pdf builder"
+msgid "Font Style"
+msgstr ""
+
+#: includes/class.builder.php:131
+msgctxt "pdf builder"
+msgid "Upload Image"
+msgstr ""
+
+#: includes/class.builder.php:132
+msgctxt "pdf builder"
+msgid "Border Radius"
+msgstr ""
+
+#: includes/class.builder.php:133
+msgctxt "pdf builder"
+msgid "Border Width"
+msgstr ""
+
+#: includes/class.builder.php:134
+msgctxt "pdf builder"
+msgid "Text Align"
+msgstr ""
+
+#: includes/class.builder.php:135
+msgctxt "pdf builder"
+msgid "Left Align"
+msgstr ""
+
+#: includes/class.builder.php:136
+msgctxt "pdf builder"
+msgid "Right Align"
+msgstr ""
+
+#: includes/class.builder.php:137
+msgctxt "pdf builder"
+msgid "Align Center"
+msgstr ""
+
+#: includes/class.builder.php:158 includes/class.init.php:73
+#: includes/class.init.php:89
+msgid "Security check Failed. Contact Administrator."
+msgstr ""
+
+#: includes/class.builder.php:164
+msgid "Saved"
+msgstr ""
+
+#: includes/class.builder.php:166
+msgid "Mismatch Type"
+msgstr ""
+
+# @ wplms-wishlist
+#: includes/class.config.php:120
+msgid "Unable to contact server"
+msgstr ""
+
+#: includes/class.init.php:47 includes/class.init.php:48
+msgid "Regenerate certificate for all users"
+msgstr ""
+
+#: includes/class.init.php:92
+msgid "Regenerate certificate complete !"
+msgstr ""
+
+#: includes/class.init.php:214
+msgid "PDF CERTIFICATES"
+msgstr ""
+
+#: includes/class.init.php:215
+msgid "Show sample certificate PDF"
+msgstr ""
+
+#: includes/class.init.php:220
+msgid "PDF Margins"
+msgstr ""
+
+#: includes/class.init.php:221
+msgid ""
+"Add a single numerical margin on all sides -> 30 OR a comma saperated margin "
+"Top,Right,Bottom,Left -> 30,20,40,50. All margins are in milimeters"
+msgstr ""
+
+#: includes/class.init.php:226
+msgid "PDF Orientation"
+msgstr ""
+
+#: includes/class.init.php:227
+msgid "PDF Page orientation"
+msgstr ""
+
+#: includes/class.init.php:230
+msgid "Custom"
+msgstr ""
+
+#: includes/class.init.php:231
+msgid "A4 PORTRAIT"
+msgstr ""
+
+#: includes/class.init.php:232
+msgid "A4 LANDSCAPE"
+msgstr ""
+
+#: includes/class.init.php:233
+msgid "A5 PORTRAIT"
+msgstr ""
+
+#: includes/class.init.php:234
+msgid "A5 LANDSCAPE"
+msgstr ""
+
+#: includes/class.init.php:235
+msgid "A6 PORTRAIT"
+msgstr ""
+
+#: includes/class.init.php:236
+msgid "A6 LANDSCAPE"
+msgstr ""
+
+#: includes/class.init.php:237
+msgid "A7 PORTRAIT"
+msgstr ""
+
+#: includes/class.init.php:238
+msgid "A7 LANDSCAPE"
+msgstr ""
+
+#: includes/class.init.php:243
+msgid "Custom Fonts"
+msgstr ""
+
+#: includes/class.init.php:244
+msgid "Upload custom fonts"
+msgstr ""
+
+#: includes/class.init.php:260
+msgid "View PDF HTML"
+msgstr ""
+
+#: includes/class.init.php:262
+msgctxt " wplms-pdf-certificates"
+msgid "Re-Generate PDF certificate"
+msgstr ""
+
+#: includes/class.init.php:263
+msgid "Download PDF"
+msgstr ""
+
+#: includes/class.init.php:265
+msgctxt " wplms-pdf-certificates"
+msgid "Generate PDF certificate"
+msgstr ""
+
+#: includes/class.init.php:317
+msgid "...generating"
+msgstr ""
+
+#: includes/class.init.php:331
+msgid "Download"
+msgstr ""
+
+#: includes/class.init.php:348
+msgid "Security check failed !"
+msgstr ""
+
+#: includes/class.init.php:381 includes/class.init.php:412
+#: includes/class.init.php:492 includes/class.init.php:513
+msgid "Attachmend failed"
+msgstr ""
+
+#: includes/class.init.php:415 includes/class.init.php:516
+msgid "Failed to load Certificate"
+msgstr ""
+
+#: includes/class.init.php:583 includes/class.init.php:717
+msgctxt "certificate title"
+msgid "Certificate for "
+msgstr ""
+
+#: includes/class.init.php:737
+msgid "PDF Certificates"
+msgstr ""
+
+#: includes/class.init.php:742
+msgid "Show PDF Certificates only"
+msgstr ""
+
+#: includes/class.init.php:745
+msgid "Show only PDF certificates"
+msgstr ""
+
+# @ wplms-wishlist
+#: includes/class.updater.php:177
+#, php-format
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+msgstr ""
+
+# @ wplms-wishlist
+#: includes/class.updater.php:184
+#, php-format
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a href=\"%4$s"
+"\">update now</a>."
+msgstr ""
+
+# @ wplms-wishlist
+#: includes/class.updater.php:324
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+# @ wplms-wishlist
+#: includes/class.updater.php:324
+msgid "Error"
+msgstr ""

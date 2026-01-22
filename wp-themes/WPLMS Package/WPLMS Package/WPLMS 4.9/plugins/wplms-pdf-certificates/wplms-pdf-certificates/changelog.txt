@@ -1,0 +1,55 @@
+* 2.5
+* function exists check
+* media enqueue
+* php 8 fix
+* 2.4
+* image not appearing and right align fix
+* 2.3
+* 2.2
+* item id for updates
+* tcpdf updated for php 8
+* 2.1
+* enable pdf certificates by default in V4
+* pdf certificate for custom learning paths
+* pot update
+* group by post_parent for all certificates : followed comment on previous commit
+* should show last certificate
+* fix for same name users having same certificates
+* 1.9
+* 1.8
+* regenerate certificate for all users
+* 1.7
+* certificate shortcodes not working fixes
+* 1.6
+* center align plus caching
+* text align property
+* additional checks before printing pdf js json data
+* 1.5
+* finish course redirecting to pdf fix
+* 1.4
+* pdf redirect issue when finish course
+* redirect to pdf certificate instead of html page if show pdf certificates only is enabled .
+* show pdf certificates only not working fix
+* no message
+* changing its version from 1.1 to 1.2
+* Adding grids in page builder of pdf certificate
+* 1.2
+* Custom fonts
+* font attachments
+* mime
+* translation update
+* 1.1
+* certificate_builder final
+* popupelemet
+* border radius
+* the content return
+* pdf controls
+* sample pdf function changes
+* builder
+* builder
+* Orientation and other things
+* PDF orientation
+* Testing of PDF certificates
+* 1.0
+* includes
+* init
