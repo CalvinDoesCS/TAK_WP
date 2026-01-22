@@ -1,0 +1,1004 @@
+/* ======================================
+   Modern Navbar Styles
+   ====================================== */
+
+/* Modern Navbar Base */
+.modern-navbar {
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+/* Dark mode support */
+.dark-style .modern-navbar {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Modern Search Input */
+.modern-search-wrapper {
+  max-width: 500px;
+  padding: 0 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.modern-search-wrapper .input-group {
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  padding: 0.375rem 0.75rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+/* Fix for typeahead wrapper */
+.modern-search-wrapper .input-group .twitter-typeahead {
+  flex: 1;
+  display: flex !important;
+  align-items: center;
+}
+
+.modern-search-wrapper .input-group .twitter-typeahead .modern-search-input {
+  flex: 1;
+}
+
+/* Navbar layout improvements */
+.navbar-nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-nav-right > .navbar-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.modern-search-wrapper .input-group:focus-within {
+  background-color: rgba(var(--bs-primary-rgb), 0.05);
+  box-shadow: 0 0 0 3px rgba(var(--bs-primary-rgb), 0.1);
+}
+
+.modern-search-input {
+  font-size: 0.9375rem;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.2s ease;
+  width: 100%;
+  min-width: 0;
+}
+
+.modern-search-input:focus {
+  outline: none;
+  box-shadow: none;
+  background-color: transparent !important;
+}
+
+.modern-search-input::placeholder {
+  color: var(--bs-gray-500);
+  font-weight: 400;
+}
+
+/* Prevent typeahead from breaking layout */
+.modern-search-wrapper .twitter-typeahead,
+.modern-search-wrapper .tt-hint {
+  width: 100% !important;
+  height: auto !important;
+  position: relative !important;
+}
+
+/* Search wrapper input group text spacing */
+.modern-search-wrapper .input-group-text {
+  padding: 0.5rem 0.5rem;
+}
+
+.modern-search-wrapper .input-group-text:first-child {
+  padding-left: 0;
+}
+
+.modern-search-wrapper .input-group-text:last-child {
+  padding-right: 0;
+}
+
+/* Modern Icon Buttons */
+.modern-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.modern-icon-btn:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+  transform: translateY(-1px);
+}
+
+.modern-icon-btn:active {
+  transform: translateY(0);
+}
+
+/* Navbar Divider */
+.navbar-divider {
+  width: 1px;
+  height: 24px;
+  background-color: rgba(0, 0, 0, 0.08);
+  margin: 0 0.5rem;
+}
+
+.dark-style .navbar-divider {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Modern Dropdown */
+.modern-dropdown {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  min-width: 200px;
+}
+
+.dark-style .modern-dropdown {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.modern-dropdown .dropdown-item {
+  border-radius: 8px;
+  padding: 0.625rem 1rem;
+  transition: all 0.2s ease;
+  margin-bottom: 0.25rem;
+  font-size: 0.9375rem;
+}
+
+.modern-dropdown .dropdown-item:last-child {
+  margin-bottom: 0;
+}
+
+.modern-dropdown .dropdown-item:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+  transform: translateX(4px);
+}
+
+.modern-dropdown .dropdown-item.active {
+  background-color: rgba(var(--bs-primary-rgb), 0.12);
+  color: var(--bs-primary);
+  font-weight: 500;
+}
+
+.modern-dropdown .dropdown-header {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.modern-dropdown .dropdown-divider {
+  margin: 0.5rem 0;
+  opacity: 0.1;
+}
+
+/* User Info Display */
+.user-info {
+  line-height: 1.3;
+  max-width: 150px;
+}
+
+.user-info span {
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-info small {
+  font-size: 0.75rem;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Avatar Enhancements */
+.avatar {
+  transition: all 0.2s ease;
+}
+
+.dropdown-user:hover .avatar {
+  box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.3);
+  transform: scale(1.05);
+}
+
+.avatar-initial {
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+/* Notification Badge Enhancement */
+.badge.rounded-pill {
+  font-size: 0.625rem;
+  padding: 0.25rem 0.4rem;
+  font-weight: 600;
+  min-width: 18px;
+  height: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Navbar Navigation Gap */
+.navbar-nav.gap-1 {
+  gap: 0.25rem;
+}
+
+/* Smooth Transitions */
+.nav-link,
+.dropdown-toggle,
+.dropdown-item {
+  transition: all 0.2s ease;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+  .modern-search-wrapper {
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .modern-icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .navbar-divider {
+    display: none;
+  }
+
+  .user-info {
+    display: none;
+  }
+
+  .modern-dropdown {
+    min-width: 280px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .modern-search-wrapper {
+    max-width: 300px;
+  }
+}
+
+/* Keyboard Shortcut Badge */
+.modern-search-wrapper kbd {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.06);
+  color: var(--bs-body-color);
+}
+
+.dark-style .modern-search-wrapper kbd {
+  background-color: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  color: #fff;
+}
+
+/* Enhanced Focus States */
+.modern-icon-btn:focus,
+.modern-search-input:focus {
+  outline: 2px solid rgba(var(--bs-primary-rgb), 0.3);
+  outline-offset: 2px;
+}
+
+/* Tooltip Enhancement */
+[data-bs-toggle="tooltip"] {
+  cursor: pointer;
+}
+
+/* Menu Toggle Button Enhancement */
+.layout-menu-toggle .nav-link {
+  transition: all 0.2s ease;
+}
+
+.layout-menu-toggle .nav-link:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+  border-radius: 8px;
+}
+
+/* Dropdown User Enhancements */
+.dropdown-user .dropdown-toggle::after {
+  display: none;
+}
+
+/* Smooth Dropdown Animation */
+.dropdown-menu {
+  animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modern Scrollbar for Dropdowns */
+.modern-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modern-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modern-dropdown::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.dark-style .modern-dropdown::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.modern-dropdown::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.dark-style .modern-dropdown::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Loading State for Icon Buttons */
+.modern-icon-btn.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.modern-icon-btn.loading i {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Active State for Navigation Items */
+.nav-item .nav-link.active {
+  color: var(--bs-primary);
+  font-weight: 500;
+}
+
+/* Modern Badge for Notifications */
+.navbar-nav .badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: 2px solid var(--bs-navbar-bg);
+}
+
+/* Text Danger for Logout */
+.dropdown-item.text-danger:hover {
+  background-color: rgba(var(--bs-danger-rgb), 0.08);
+  color: var(--bs-danger);
+}
+
+/* Improved Click Feedback */
+.modern-icon-btn:active,
+.dropdown-item:active {
+  transform: scale(0.96);
+}
+
+/* Better alignment for icons in dropdown */
+.dropdown-item i {
+  width: 20px;
+  text-align: center;
+}
+
+/* Enhanced spacing for cleaner look */
+.navbar-nav .nav-item {
+  display: flex;
+  align-items: center;
+}
+
+/* Glassmorphism effect for semi-dark theme */
+.theme-semi-dark .modern-navbar {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px) saturate(180%);
+}
+
+.theme-semi-dark.dark-style .modern-navbar {
+  background: rgba(30, 30, 47, 0.9);
+  backdrop-filter: blur(10px) saturate(180%);
+}
+
+/* ======================================
+   Vertical Menu User Profile Card
+   ====================================== */
+
+/* Layout adjustments for menu with profile card */
+.layout-menu {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+}
+
+.layout-menu .menu-inner {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 120px !important; /* Space for profile card */
+}
+
+/* User Profile Card Container */
+.menu-user-profile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 17.06rem; /* Match menu width */
+  z-index: 1000;
+  background: inherit !important; /* Inherit menu background */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Ensure it matches the menu theme background */
+.bg-menu-theme .menu-user-profile,
+.layout-menu.bg-menu-theme .menu-user-profile {
+  background: inherit !important;
+}
+
+/* Profile Card Styling */
+.user-profile-card {
+  width: 100%;
+}
+
+.user-profile-toggle {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0;
+  position: relative;
+}
+
+.user-profile-toggle:hover {
+  background: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+.user-profile-toggle::after {
+  display: none !important;
+}
+
+/* Avatar in Profile Card */
+.user-profile-card .avatar {
+  transition: all 0.2s ease;
+}
+
+.user-profile-toggle:hover .avatar {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.3);
+}
+
+/* User Info in Profile Card */
+.user-profile-card .user-info h6 {
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+  color: #fff !important;
+}
+
+.user-profile-card .user-info small {
+  font-size: 0.8125rem;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Chevron Icon */
+.user-profile-card .bx-chevron-up {
+  transition: transform 0.3s ease;
+  color: var(--bs-gray-600);
+}
+
+.user-profile-toggle[aria-expanded="true"] .bx-chevron-up {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu for Profile Card */
+.menu-user-profile .dropdown-menu {
+  position: relative !important;
+  transform: none !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+  background: inherit !important; /* Inherit menu background */
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0.5rem !important;
+}
+
+.menu-user-profile .dropdown-item {
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+  margin-bottom: 0.25rem;
+  color: #fff !important;
+}
+
+.menu-user-profile .dropdown-item:last-child {
+  margin-bottom: 0;
+}
+
+.menu-user-profile .dropdown-item:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+  transform: translateX(4px);
+  color: #fff !important;
+}
+
+.menu-user-profile .dropdown-item.text-danger {
+  color: #ff4c51 !important;
+}
+
+.menu-user-profile .dropdown-item.text-danger:hover {
+  background-color: rgba(var(--bs-danger-rgb), 0.08);
+  color: #ff4c51 !important;
+}
+
+/* Collapsed Menu State */
+.layout-menu-collapsed .menu-user-profile,
+.layout-menu.menu-collapsed .menu-user-profile {
+  width: 80px;
+}
+
+.layout-menu-collapsed .user-info,
+.layout-menu-collapsed .bx-chevron-up,
+.layout-menu.menu-collapsed .user-info,
+.layout-menu.menu-collapsed .bx-chevron-up {
+  display: none !important;
+}
+
+.layout-menu-collapsed .user-profile-toggle .d-flex,
+.layout-menu.menu-collapsed .user-profile-toggle .d-flex {
+  justify-content: center;
+  padding: 1rem !important;
+}
+
+.layout-menu-collapsed .menu-user-profile .dropdown-menu,
+.layout-menu.menu-collapsed .menu-user-profile .dropdown-menu {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 100% !important;
+  margin-left: 0.5rem !important;
+  width: 240px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.dark-style .layout-menu-collapsed .menu-user-profile .dropdown-menu,
+.dark-style .layout-menu.menu-collapsed .menu-user-profile .dropdown-menu {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* For RTL support */
+[dir="rtl"] .menu-user-profile {
+  left: auto;
+  right: 0;
+}
+
+[dir="rtl"] .layout-menu-collapsed .menu-user-profile .dropdown-menu,
+[dir="rtl"] .layout-menu.menu-collapsed .menu-user-profile .dropdown-menu {
+  left: auto !important;
+  right: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0.5rem !important;
+}
+
+/* Avatar Size */
+.user-profile-card .avatar-lg {
+  width: 42px;
+  height: 42px;
+}
+
+.user-profile-card .avatar-lg .avatar-initial {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Smooth transitions for menu toggle */
+.layout-menu {
+  transition: width 0.3s ease;
+}
+
+.menu-user-profile {
+  transition: width 0.3s ease;
+}
+
+/* Ensure proper spacing */
+.menu-user-profile .dropdown-divider {
+  margin: 0.5rem 0;
+  opacity: 0.1;
+}
+
+/* Icon alignment in dropdown */
+.menu-user-profile .dropdown-item i {
+  width: 20px;
+  text-align: center;
+  font-size: 1.125rem;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 1199.98px) {
+  .layout-menu .menu-inner {
+    padding-bottom: 90px !important;
+  }
+
+  .user-profile-card .user-info h6 {
+    font-size: 0.875rem;
+  }
+
+  .user-profile-card .user-info small {
+    font-size: 0.75rem;
+  }
+}
+
+/* Animation for dropdown */
+.menu-user-profile .dropdown-menu {
+  animation: slideUpFadeIn 0.3s ease;
+}
+
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effect enhancement */
+.user-profile-toggle {
+  position: relative;
+  overflow: hidden;
+}
+
+.user-profile-toggle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(var(--bs-primary-rgb), 0.05), transparent);
+  transition: left 0.5s ease;
+}
+
+.user-profile-toggle:hover::before {
+  left: 100%;
+}
+
+/* Status indicator enhancement */
+.user-profile-card .avatar-online::before {
+  border: 2px solid var(--bs-menu-bg);
+}
+
+/* Dark mode specific adjustments */
+.dark-style .user-profile-toggle:hover {
+  background: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+/* Active state */
+.user-profile-toggle[aria-expanded="true"] {
+  background: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+.dark-style .user-profile-toggle[aria-expanded="true"] {
+  background: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+/* ======================================
+   Modern Search Results
+   ====================================== */
+
+/* Search Results Dropdown */
+.modern-search-results,
+.navbar-search-suggestion,
+.tt-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100% !important;
+  margin-top: 0.5rem;
+  background: var(--bs-body-bg);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0.5rem 0;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1050;
+}
+
+/* Ensure wrapper matches search input width */
+.modern-search-wrapper .twitter-typeahead {
+  width: 100% !important;
+  display: block !important;
+}
+
+/* Make sure typeahead menu inherits wrapper width */
+.modern-search-wrapper .tt-menu,
+.modern-search-wrapper .navbar-search-suggestion {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.dark-style .modern-search-results,
+.dark-style .navbar-search-suggestion,
+.dark-style .tt-menu {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Search Result Items */
+.search-result-item {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin: 0 0.5rem 0.25rem;
+  transition: all 0.2s ease;
+  color: inherit;
+  text-decoration: none;
+}
+
+.search-result-item:hover,
+.search-result-item.active {
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+  transform: translateX(4px);
+}
+
+.search-result-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Search Item Content */
+.search-item-content {
+  line-height: 1.4;
+}
+
+.search-item-title {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--bs-body-color);
+}
+
+.search-item-subtitle {
+  font-size: 0.8125rem;
+  color: var(--bs-text-muted);
+}
+
+/* Search Icon Wrapper */
+.search-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+.search-avatar-wrapper img,
+.search-avatar-wrapper .avatar {
+  border-radius: 50%;
+}
+
+/* Suggestions Header */
+.suggestions-header {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 0.5rem;
+}
+
+.dark-style .suggestions-header {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Not Found State */
+.not-found {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.not-found p {
+  color: var(--bs-text-muted);
+  font-size: 0.9375rem;
+}
+
+/* Search Results Scrollbar */
+.modern-search-results::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modern-search-results::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modern-search-results::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.dark-style .modern-search-results::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.modern-search-results::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.dark-style .modern-search-results::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Loading State */
+.search-loading {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--bs-text-muted);
+}
+
+.search-loading i {
+  animation: spin 1s linear infinite;
+}
+
+/* Empty State */
+.search-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.search-empty i {
+  font-size: 3rem;
+  color: var(--bs-text-muted);
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.search-empty p {
+  color: var(--bs-text-muted);
+  margin-bottom: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+  .modern-search-results {
+    max-height: 300px;
+  }
+
+  .search-result-item {
+    padding: 0.625rem 0.875rem;
+  }
+}
+
+/* ======================================
+   Vertical Menu Modern Interactions
+   ====================================== */
+
+/* Menu Item Hover Effects */
+.layout-menu .menu-inner .menu-item .menu-link {
+  transition: background-color 0.2s ease;
+  border-radius: 6px;
+  margin: 2px 12px;
+  position: relative;
+}
+
+.layout-menu .menu-inner .menu-item .menu-link:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.06);
+}
+
+/* Active Menu Item */
+.layout-menu .menu-inner .menu-item.active > .menu-link {
+  background-color: rgba(var(--bs-primary-rgb), 0.1);
+}
+
+/* Open Submenu Item */
+.layout-menu .menu-inner .menu-item.open > .menu-link {
+  background-color: rgba(var(--bs-primary-rgb), 0.06);
+}
+
+/* Submenu Items - No transform */
+.layout-menu .menu-inner .menu-item .menu-sub .menu-item .menu-link {
+  margin: 2px 12px 2px 20px;
+}
+
+/* Menu Icon - Subtle scale only */
+.layout-menu .menu-inner .menu-item .menu-link i {
+  transition: transform 0.2s ease;
+}
+
+.layout-menu .menu-inner .menu-item .menu-link:hover i {
+  transform: scale(1.05);
+}
+
+/* Menu Header Enhancement */
+.layout-menu .menu-inner .menu-header {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 1rem 1.5rem 0.5rem;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+
+/* Smooth Scrollbar for Menu */
+.layout-menu .menu-inner::-webkit-scrollbar {
+  width: 6px;
+}
+
+.layout-menu .menu-inner::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.layout-menu .menu-inner::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.layout-menu .menu-inner::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Collapsed Menu Hover */
+.layout-menu.menu-collapsed .menu-inner .menu-item .menu-link:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+}

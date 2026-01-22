@@ -1,0 +1,657 @@
+{
+    "menu": [
+        {
+            "menuHeader": "Overview"
+        },
+        {
+            "url": "/",
+            "name": "Dashboard",
+            "icon": "menu-icon bx bx-home",
+            "slug": "tenant.dashboard"
+        },
+        {
+            "menuHeader": "HR Management"
+        },
+        {
+            "name": "Leave Management",
+            "icon": "menu-icon bx bx-calendar-x",
+            "slug": [
+                "hrcore.leaves.index",
+                "hrcore.leaves.team",
+                "hrcore.compensatory-offs.index",
+                "hrcore.compensatory-offs.create",
+                "hrcore.compensatory-offs.show",
+                "hrcore.compensatory-offs.edit",
+                "hrcore.leave-types.index",
+                "hrcore.leave-balance.index",
+                "hrcore.leave-reports.dashboard",
+                "hrcore.leave-reports.balance",
+                "hrcore.leave-reports.history",
+                "hrcore.leave-reports.department",
+                "hrcore.leave-reports.compliance"
+            ],
+            "submenu": [
+                {
+                    "url": "/hrcore/leaves",
+                    "name": "All Leave Requests",
+                    "slug": "hrcore.leaves.index"
+                },
+                {
+                    "url": "/hrcore/compensatory-offs",
+                    "name": "Compensatory Offs",
+                    "slug": "hrcore.compensatory-offs.index"
+                },
+                {
+                    "url": "/hrcore/leaves/team",
+                    "name": "Team Calendar",
+                    "slug": "hrcore.leaves.team"
+                },
+                {
+                    "url": "/hrcore/leave-types",
+                    "name": "Leave Types",
+                    "slug": "hrcore.leave-types.index"
+                },
+                {
+                    "url": "/hrcore/leave-balance",
+                    "name": "Balance Management",
+                    "slug": "hrcore.leave-balance.index"
+                },
+                {
+                    "name": "Reports",
+                    "icon": "menu-icon bx bx-chart",
+                    "slug": [
+                        "hrcore.leave-reports.dashboard",
+                        "hrcore.leave-reports.balance",
+                        "hrcore.leave-reports.history",
+                        "hrcore.leave-reports.department",
+                        "hrcore.leave-reports.compliance"
+                    ],
+                    "submenu": [
+                        {
+                            "url": "/hrcore/leave-reports/dashboard",
+                            "name": "Dashboard",
+                            "slug": "hrcore.leave-reports.dashboard"
+                        },
+                        {
+                            "url": "/hrcore/leave-reports/balance",
+                            "name": "Leave Balance",
+                            "slug": "hrcore.leave-reports.balance"
+                        },
+                        {
+                            "url": "/hrcore/leave-reports/history",
+                            "name": "Leave History",
+                            "slug": "hrcore.leave-reports.history"
+                        },
+                        {
+                            "url": "/hrcore/leave-reports/department",
+                            "name": "Department Statistics",
+                            "slug": "hrcore.leave-reports.department"
+                        },
+                        {
+                            "url": "/hrcore/leave-reports/compliance",
+                            "name": "Compliance",
+                            "slug": "hrcore.leave-reports.compliance"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Attendance Management",
+            "icon": "menu-icon bx bx-time-five",
+            "slug": [
+                "hrcore.attendance.index",
+                "hrcore.attendance.web-attendance",
+                "hrcore.attendance-regularization.index",
+                "hrcore.attendance-dashboard.index",
+                "hrcore.attendance.monthly-summary",
+                "hrcore.attendance.daily-report",
+                "hrcore.attendance.department-comparison",
+                "hrcore.attendance.overtime-report",
+                "hrcore.attendance.late-arrivals",
+                "hrcore.attendance.employee-history"
+            ],
+            "submenu": [
+                {
+                    "url": "/hrcore/attendance-dashboard",
+                    "name": "Dashboard",
+                    "icon": "menu-icon bx bx-grid-alt",
+                    "slug": "hrcore.attendance-dashboard.index"
+                },
+                {
+                    "url": "/hrcore/attendance",
+                    "name": "All Attendance Records",
+                    "icon": "menu-icon bx bx-list-ul",
+                    "slug": "hrcore.attendance.index"
+                },
+                {
+                    "url": "/hrcore/attendance/web-attendance",
+                    "name": "Web Check-in Station",
+                    "icon": "menu-icon bx bx-desktop",
+                    "slug": "hrcore.attendance.web-attendance"
+                },
+                {
+                    "url": "/hrcore/attendance-regularization",
+                    "name": "Regularization Management",
+                    "icon": "menu-icon bx bx-edit-alt",
+                    "slug": "hrcore.attendance-regularization.index"
+                },
+                {
+                    "name": "Reports",
+                    "icon": "menu-icon bx bx-bar-chart-alt-2",
+                    "slug": [
+                        "hrcore.attendance.daily-report",
+                        "hrcore.attendance.monthly-summary",
+                        "hrcore.attendance.late-arrivals",
+                        "hrcore.attendance.overtime-report",
+                        "hrcore.attendance.employee-history",
+                        "hrcore.attendance.department-comparison"
+                    ],
+                    "submenu": [
+                        {
+                            "url": "/hrcore/attendance/daily-report",
+                            "name": "Daily Attendance Report",
+                            "slug": "hrcore.attendance.daily-report"
+                        },
+                        {
+                            "url": "/hrcore/attendance/monthly-summary",
+                            "name": "Monthly Summary Report",
+                            "slug": "hrcore.attendance.monthly-summary"
+                        },
+                        {
+                            "url": "/hrcore/attendance/late-arrivals",
+                            "name": "Late Arrivals Report",
+                            "slug": "hrcore.attendance.late-arrivals"
+                        },
+                        {
+                            "url": "/hrcore/attendance/overtime-report",
+                            "name": "Overtime Hours Report",
+                            "slug": "hrcore.attendance.overtime-report"
+                        },
+                        {
+                            "url": "/hrcore/attendance/department-comparison",
+                            "name": "Department Comparison Report",
+                            "slug": "hrcore.attendance.department-comparison"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Document Management",
+            "icon": "menu-icon bx bx-folder",
+            "addon": "DocumentManagement",
+            "slug": [
+                "documentmanagement.dashboard",
+                "documentmanagement.document-requests.index",
+                "documentmanagement.employee-documents.index",
+                "documentmanagement.document-categories.index"
+            ],
+            "submenu": [
+                {
+                    "url": "/document-management",
+                    "name": "Documents Dashboard",
+                    "slug": "documentmanagement.dashboard"
+                },
+                {
+                    "url": "/document-management/document-requests",
+                    "name": "Document Requests",
+                    "slug": "documentmanagement.document-requests.index"
+                },
+                {
+                    "url": "/document-management/employee-documents",
+                    "name": "Employee Documents",
+                    "slug": "documentmanagement.employee-documents.index"
+                },
+                {
+                    "url": "/document-management/document-categories",
+                    "name": "Document Categories",
+                    "slug": "documentmanagement.document-categories.index"
+                }
+            ]
+        },
+        {
+            "menuHeader": "Workforce"
+        },
+        {
+            "url": "/employees",
+            "name": "Employees",
+            "icon": "menu-icon bx bx-group",
+            "slug": "employees.index"
+        },
+        {
+            "name": "Recruitment",
+            "icon": "menu-icon bx bx-user-plus",
+            "slug": [
+                "recruitment.jobOpenings.index",
+                "recruitment.onboardingTasks.index"
+            ],
+            "addon": "Recruitment",
+            "submenu": [
+                {
+                    "url": "/recruitment/jobOpenings",
+                    "name": "Job Openings",
+                    "slug": "recruitment.jobOpenings.index",
+                    "addon": "Recruitment"
+                },
+                {
+                    "url": "/recruitment/onboardingTasks",
+                    "name": "Onboarding Tasks",
+                    "slug": "recruitment.onboardingTasks.index",
+                    "addon": "Recruitment"
+                }
+            ]
+        },
+        {
+            "url": "/attendance",
+            "name": "Attendance",
+            "icon": "menu-icon bx bx-time-five",
+            "slug": "attendance.index"
+        },
+        {
+            "name": "Payroll",
+            "icon": "menu-icon bx bx-money",
+            "addon": "Payroll",
+            "slug": [
+                "payroll.dashboard",
+                "payroll.index",
+                "payroll.components",
+                "payroll.modifiers",
+                "payroll.salary-structures",
+                "payroll.reports.register",
+                "payroll.reports.department",
+                "payroll.reports.tax",
+                "payroll.reports.employee",
+                "payroll.settings"
+            ],
+            "submenu": [
+                {
+                    "url": "/payroll/dashboard",
+                    "name": "Dashboard",
+                    "icon": "menu-icon bx bx-bar-chart-alt-2",
+                    "slug": "payroll.dashboard"
+                },
+                {
+                    "url": "/payroll",
+                    "name": "All Records",
+                    "icon": "menu-icon bx bx-file",
+                    "slug": "payroll.index"
+                },
+                {
+                    "url": "/payroll/components",
+                    "name": "Components",
+                    "icon": "menu-icon bx bx-box",
+                    "slug": "payroll.components"
+                },
+                {
+                    "url": "/payroll/modifiers",
+                    "name": "Modifiers",
+                    "icon": "menu-icon bx bx-slider",
+                    "slug": "payroll.modifiers"
+                },
+                {
+                    "url": "/payroll/salary-structures",
+                    "name": "Salary Structures",
+                    "icon": "menu-icon bx bx-dollar-circle",
+                    "slug": "payroll.salary-structures"
+                },
+                {
+                    "name": "Reports",
+                    "icon": "menu-icon bx bx-bar-chart",
+                    "slug": [
+                        "payroll.reports.register",
+                        "payroll.reports.department",
+                        "payroll.reports.tax",
+                        "payroll.reports.employee"
+                    ],
+                    "submenu": [
+                        {
+                            "url": "/payroll/reports/register",
+                            "name": "Payroll Register",
+                            "slug": "payroll.reports.register"
+                        },
+                        {
+                            "url": "/payroll/reports/department",
+                            "name": "Department Summary",
+                            "slug": "payroll.reports.department"
+                        },
+                        {
+                            "url": "/payroll/reports/tax",
+                            "name": "Tax Summary",
+                            "slug": "payroll.reports.tax"
+                        },
+                        {
+                            "url": "/payroll/reports/employee",
+                            "name": "Employee History",
+                            "slug": "payroll.reports.employee"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Organization",
+            "icon": "menu-icon bx bx-building",
+            "slug": [
+                "teams.index",
+                "departments.index",
+                "designations.index",
+                "organizationHierarchy.index"
+            ],
+            "submenu": [
+                {
+                    "url": "/teams",
+                    "name": "Teams",
+                    "slug": "teams.index"
+                },
+                {
+                    "url": "/departments",
+                    "name": "Departments",
+                    "slug": "departments.index"
+                },
+                {
+                    "url": "/designations",
+                    "name": "Designations",
+                    "slug": "designations.index"
+                },
+                {
+                    "url": "/organizationHierarchy",
+                    "name": "Hierarchy",
+                    "slug": "organizationHierarchy.index"
+                }
+            ]
+        },
+        {
+            "name": "Disciplinary Actions",
+            "icon": "menu-icon bx bx-shield-x",
+            "slug": [
+                "disciplinaryactions.warnings.index",
+                "disciplinaryactions.warning-types.index",
+                "disciplinaryactions.appeals.index",
+                "disciplinaryactions.warnings.my-warnings"
+            ],
+            "addon": "DisciplinaryActions",
+            "submenu": [
+                {
+                    "url": "/disciplinary-actions/warnings",
+                    "name": "Warnings",
+                    "icon": "menu-icon bx bx-error",
+                    "slug": "disciplinaryactions.warnings.index"
+                },
+                {
+                    "url": "/disciplinary-actions/warning-types",
+                    "name": "Warning Types",
+                    "icon": "menu-icon bx bx-list-ul",
+                    "slug": "disciplinaryactions.warning-types.index"
+                },
+                {
+                    "url": "/disciplinary-actions/appeals",
+                    "name": "Appeals",
+                    "icon": "menu-icon bx bx-message-square-detail",
+                    "slug": "disciplinaryactions.appeals.index"
+                },
+                {
+                    "url": "/disciplinary-actions/warnings/my-warnings",
+                    "name": "My Warnings",
+                    "icon": "menu-icon bx bx-user-check",
+                    "slug": "disciplinaryactions.warnings.my-warnings"
+                }
+            ]
+        },
+        {
+            "name": "HR Policies",
+            "icon": "menu-icon bx bx-book-content",
+            "slug": [
+                "hrpolicies.policies.index",
+                "hrpolicies.policy-categories.index",
+                "hrpolicies.policy-acknowledgments.index"
+            ],
+            "addon": "HRPolicies",
+            "submenu": [
+                {
+                    "url": "/hr-policies/policies",
+                    "name": "Policies",
+                    "icon": "menu-icon bx bx-file-blank",
+                    "slug": "hrpolicies.policies.index"
+                },
+                {
+                    "url": "/hr-policies/policy-categories",
+                    "name": "Categories",
+                    "icon": "menu-icon bx bx-category",
+                    "slug": "hrpolicies.policy-categories.index"
+                },
+                {
+                    "url": "/hr-policies/policy-acknowledgments",
+                    "name": "Acknowledgments",
+                    "icon": "menu-icon bx bx-check-circle",
+                    "slug": "hrpolicies.policy-acknowledgments.index"
+                }
+            ]
+        },
+        {
+            "menuHeader": "Requests"
+        },
+        {
+            "url": "/expenseRequests",
+            "name": "Expense Requests",
+            "icon": "menu-icon bx bx-file-blank",
+            "slug": "expenseRequests.index"
+        },
+        {
+            "url": "/loan",
+            "name": "Loan Requests",
+            "icon": "menu-icon bx bx-file-blank",
+            "slug": "loan.index",
+            "addon": "LoanManagement"
+        },
+        {
+            "name": "Self Service",
+            "icon": "menu-icon bx bx-user-circle",
+            "slug": [
+                "hrcore.my.profile",
+                "hrcore.my.attendance",
+                "hrcore.my.attendance.regularization",
+                "hrcore.my.leaves",
+                "hrcore.my.leaves.balance",
+                "hrcore.my.leaves.apply",
+                "hrcore.my.compensatory-offs",
+                "hrcore.my.expenses",
+                "hrcore.my.expenses.create",
+                "payroll.my.payslips.index",
+                "hrcore.my.holidays",
+                "hrcore.my.reports",
+                "documentmanagement.my.documents",
+                "documentmanagement.document-requests.my-requests",
+                "documentmanagement.document-requests.create"
+            ],
+            "submenu": [
+                {
+                    "url": "/hrcore/my/profile",
+                    "name": "My Profile",
+                    "slug": "hrcore.my.profile"
+                },
+                {
+                    "url": "/hrcore/my/attendance",
+                    "name": "My Attendance",
+                    "slug": "hrcore.my.attendance"
+                },
+                {
+                    "url": "/hrcore/my/attendance/regularization",
+                    "name": "My Regularization",
+                    "slug": "hrcore.my.attendance.regularization"
+                },
+                {
+                    "url": "/hrcore/my/leaves",
+                    "name": "My Leave Requests",
+                    "slug": "hrcore.my.leaves"
+                },
+                {
+                    "url": "/hrcore/my/leaves/balance",
+                    "name": "My Leave Balance",
+                    "slug": "hrcore.my.leaves.balance"
+                },
+                {
+                    "url": "/hrcore/my/leaves/apply",
+                    "name": "Apply for Leave",
+                    "slug": "hrcore.my.leaves.apply"
+                },
+                {
+                    "url": "/hrcore/my/compensatory-offs",
+                    "name": "My Compensatory Offs",
+                    "slug": "hrcore.my.compensatory-offs"
+                },
+                {
+                    "url": "/hrcore/my/expenses",
+                    "name": "My Expenses",
+                    "slug": "hrcore.my.expenses"
+                },
+                {
+                    "url": "/hrcore/my/expenses/create",
+                    "name": "Create Expense",
+                    "slug": "hrcore.my.expenses.create"
+                },
+                {
+                    "url": "/payroll/my/payslips",
+                    "name": "My Payslips",
+                    "slug": "payroll.my.payslips.index",
+                    "addon": "Payroll"
+                },
+                {
+                    "url": "/document-management/my/documents",
+                    "name": "My Documents",
+                    "slug": "documentmanagement.my.documents",
+                    "addon": "DocumentManagement"
+                },
+                {
+                    "url": "/document-management/document-requests/my-requests",
+                    "name": "My Document Requests",
+                    "slug": "documentmanagement.document-requests.my-requests",
+                    "addon": "DocumentManagement"
+                },
+                {
+                    "url": "/document-management/document-requests/create",
+                    "name": "Request Document",
+                    "slug": "documentmanagement.document-requests.create",
+                    "addon": "DocumentManagement"
+                },
+                {
+                    "url": "/hrcore/my/holidays",
+                    "name": "My Holidays",
+                    "slug": "hrcore.my.holidays"
+                },
+                {
+                    "url": "/hrcore/my/reports",
+                    "name": "My Reports",
+                    "slug": "hrcore.my.reports"
+                }
+            ]
+        },
+        {
+            "menuHeader": "Data & Reports"
+        },
+        {
+            "url": "/dataImportExport",
+            "name": "Data Import/Export",
+            "icon": "menu-icon bx bx-transfer",
+            "slug": "dataImportExport.index",
+            "addon": "DataImportExport"
+        },
+        {
+            "menuHeader": "Configuration"
+        },
+        {
+            "icon": "menu-icon bx bx-data",
+            "name": "Masters",
+            "slug": [
+                "shifts.index",
+                "hrcore.holidays.index",
+                "ipgroup.index",
+                "geofencegroup.index",
+                "qrcode.index",
+                "admin.face-attendance-devices.index",
+                "expenseTypes.index",
+                "documentmanagement.document-types.index",
+                "siteattendance.index"
+            ],
+            "submenu": [
+                {
+                    "url": "/shifts",
+                    "name": "Shifts",
+                    "slug": "shifts.index"
+                },
+                {
+                    "url": "/holidays",
+                    "name": "Holidays",
+                    "slug": "hrcore.holidays.index"
+                },
+                {
+                    "url": "/expenseTypes",
+                    "name": "Expense Types",
+                    "slug": "expenseTypes.index"
+                },
+                {
+                    "url": "/document-management/document-types",
+                    "name": "Document Types",
+                    "slug": "documentmanagement.document-types.index",
+                    "addon": "DocumentManagement"
+                },
+                {
+                    "url": "/ipgroup",
+                    "name": "IP Groups",
+                    "slug": "ipgroup.index",
+                    "addon": "IpAddressAttendance"
+                },
+                {
+                    "url": "/geofencegroup",
+                    "name": "Geofence Groups",
+                    "slug": "geofencegroup.index",
+                    "addon": "GeofenceSystem"
+                },
+                {
+                    "url": "/qrcode",
+                    "name": "QR Code Groups",
+                    "slug": "qrcode.index",
+                    "addon": "QRAttendance"
+                },
+                {
+                    "url": "/admin/face-attendance-devices",
+                    "name": "Face Attendance Devices",
+                    "slug": "admin.face-attendance-devices.index",
+                    "addon": "FaceAttendanceDevice"
+                },
+                {
+                    "url": "/siteattendance",
+                    "name": "Sites",
+                    "slug": "siteattendance.index",
+                    "addon": "SiteAttendance"
+                }
+            ]
+        },
+        {
+            "url": "/fieldmanager/devices",
+            "name": "Registered Devices",
+            "icon": "menu-icon bx bx-devices",
+            "slug": "fieldmanager.devices.index"
+        },
+        {
+            "url": "/calendar",
+            "name": "Calendar",
+            "icon": "menu-icon bx bx-calendar",
+            "slug": "calendar.index",
+            "addon": "Calendar"
+        },
+        {
+            "url": "/notes",
+            "name": "Notes",
+            "icon": "menu-icon bx bx-notepad",
+            "slug": "user.notes.index",
+            "addon": "Notes"
+        },
+        {
+            "url": "/notifications",
+            "name": "Notifications",
+            "icon": "menu-icon bx bx-bell",
+            "slug": "notifications.index"
+        }
+    ]
+}

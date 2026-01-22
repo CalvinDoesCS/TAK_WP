@@ -1,0 +1,46 @@
+{
+  "menu": [
+    {
+      "name": "Dashboard",
+      "icon": "bx bx-home-circle",
+      "slug": "multitenancycore.tenant.dashboard",
+      "url": "/tenant/dashboard"
+    },
+    {
+      "name": "Subscription",
+      "icon": "bx bx-package",
+      "slug": "multitenancycore.tenant.subscription",
+      "url": "/tenant/subscription"
+    },
+    {
+      "name": "Billing",
+      "icon": "bx bx-credit-card",
+      "slug": "multitenancycore.tenant.billing",
+      "url": "/tenant/billing"
+    },
+    {
+      "name": "Invoices",
+      "icon": "bx bx-receipt",
+      "slug": "multitenancycore.tenant.invoices",
+      "url": "/tenant/invoices"
+    },
+    {
+      "name": "Usage",
+      "icon": "bx bx-bar-chart-alt-2",
+      "slug": "multitenancycore.tenant.usage",
+      "url": "/tenant/usage"
+    },
+    {
+      "name": "Profile",
+      "icon": "bx bx-user",
+      "slug": "multitenancycore.tenant.profile",
+      "url": "/tenant/profile"
+    },
+    {
+      "name": "Support",
+      "icon": "bx bx-support",
+      "slug": "multitenancycore.tenant.support",
+      "url": "/tenant/support"
+    }
+  ]
+}
