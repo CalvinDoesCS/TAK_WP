@@ -5,10 +5,10 @@
 echo "🔧 Configuring WordPress for Wasm Micro-Apps..."
 
 # Add CORS headers to WordPress
-docker-compose exec -T wpcli wp config set --raw WP_CORS_ENABLED true
+docker compose exec -T wpcli wp config set --raw WP_CORS_ENABLED true
 
 # Add custom CORS headers via wp-config.php
-docker-compose exec -T wpcli bash -c 'cat >> /var/www/html/wp-config.php << '\''EOF'\''
+docker compose exec -T wpcli bash -c 'cat >> /var/www/html/wp-config.php << '\''EOF'\''
 
 // CORS Configuration for Octane Wasm Apps
 if (!defined('\''WP_CORS_ENABLED'\'')) {
@@ -18,6 +18,7 @@ if (!defined('\''WP_CORS_ENABLED'\'')) {
 if (WP_CORS_ENABLED) {
     // Allow specific origins
     $allowed_origins = array(
+        '\''http://localhost:5174'\'',
         '\''http://localhost:3000'\'',
         '\''http://octane-micro-app-api:3000'\'',
         '\''http://localhost:8080'\''

@@ -28,6 +28,7 @@ export type Apps = {
   System: App;
   "System/File Manager": App;
   "System/Calculator": App;
+  "System/WASM App": App;
 } & {
   [key: string]: App;
 };
@@ -136,6 +137,13 @@ export const apps: Apps = {
     loading: false,
     supportedFileExtensions: [],
     category: appCategories[2],
+    windows: {},
+  },
+  "System/WASM App": {
+    pinned: true,
+    loading: false,
+    supportedFileExtensions: [],
+    category: appCategories[0],
     windows: {},
   },
 };

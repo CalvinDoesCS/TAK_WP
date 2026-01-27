@@ -193,6 +193,18 @@ export const files: Files = {
             component: "Clock",
             entries: {},
           },
+          "WASM App": {
+            id: generateUniqueId(),
+            icon: "application-default-icon.svg",
+            selected: false,
+            animated: false,
+            editable: false,
+            index: 12,
+            type: "file",
+            extension: "app",
+            component: "WasmApp",
+            entries: {},
+          },
         },
       },
       Desktop: {
