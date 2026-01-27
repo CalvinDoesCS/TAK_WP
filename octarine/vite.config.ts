@@ -19,7 +19,7 @@ export default defineConfig({
     },
     proxy: {
       '/wp-json': {
-        target: 'http://localhost:8080',
+        target: 'http://headless-wp',
         changeOrigin: true,
         secure: false,
       },

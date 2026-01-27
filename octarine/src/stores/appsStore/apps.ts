@@ -144,6 +144,13 @@ export const apps: Apps = {
     loading: false,
     supportedFileExtensions: [],
     category: appCategories[0],
-    windows: {},
+    windows: {
+      "wasm-demo": {
+        minimize: false,
+        zoom: false,
+        focus: true,
+        zIndex: 1,
+      },
+    },
   },
 };

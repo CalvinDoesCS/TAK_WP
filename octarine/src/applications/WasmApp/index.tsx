@@ -5,6 +5,8 @@ interface WasmExports {
   greet?: (name: string) => string;
   init_app?: () => void;
   fibonacci?: (n: number) => number;
+  add?: (a: number, b: number) => number;
+  multiply?: (a: number, b: number) => number;
   process_data?: (data: string) => string;
   memory?: WebAssembly.Memory;
 }
@@ -27,7 +29,7 @@ interface WasmAppProps {
  *   icon: '⚙️'
  * }
  */
-function WasmApp({ moduleName = "tak_wasm_apps", wasmUrl, onLoad }: WasmAppProps) {
+function WasmApp({ moduleName = "demo-room", wasmUrl, onLoad }: WasmAppProps) {
   const [exports, setExports] = useState<WasmExports | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -42,9 +44,9 @@ function WasmApp({ moduleName = "tak_wasm_apps", wasmUrl, onLoad }: WasmAppProps
         // Construct URL if not provided
         let url = wasmUrl;
         if (!url) {
-          // Default to a relative path so the dev server can proxy to WordPress (avoids CORS)
+          // Use Octane Core plugin REST API endpoint
           const wpApiBase = (import.meta as any)?.env?.VITE_WP_API_BASE ?? "";
-          url = `${wpApiBase}/wp-json/tak/v1/wasm/${moduleName}`;
+          url = `${wpApiBase}/wp-json/octane/v1/wasm/${moduleName}`;
         }
 
         console.log(`📦 Loading WASM module from: ${url}`);
@@ -122,6 +124,22 @@ function WasmApp({ moduleName = "tak_wasm_apps", wasmUrl, onLoad }: WasmAppProps
             <div className='bg-green-900/20 border border-green-600 rounded p-3'>
               <p className='text-green-400 font-mono text-sm'>✅ WASM Loaded</p>
             </div>
+
+            {/* Demo: Add function */}
+            {exports.add && (
+              <div className='bg-slate-700 rounded p-4 border border-slate-600'>
+                <p className='text-cyan-400 font-mono text-sm mb-2'>add(5, 3)</p>
+                <p className='text-slate-200 text-sm'>Result: {exports.add(5, 3)}</p>
+              </div>
+            )}
+
+            {/* Demo: Multiply function */}
+            {exports.multiply && (
+              <div className='bg-slate-700 rounded p-4 border border-slate-600'>
+                <p className='text-cyan-400 font-mono text-sm mb-2'>multiply(4, 7)</p>
+                <p className='text-slate-200 text-sm'>Result: {exports.multiply(4, 7)}</p>
+              </div>
+            )}
 
             {/* Demo: Greet function */}
             {exports.greet && (
