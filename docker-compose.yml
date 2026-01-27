@@ -1,0 +1,131 @@
+services:
+  # WordPress Database
+  wordpress-db:
+    image: mysql:8.0
+    container_name: headless-wp-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${WP_MYSQL_DATABASE:-wordpress}
+      MYSQL_USER: ${WP_MYSQL_USER:-wordpress}
+      MYSQL_PASSWORD: ${WP_MYSQL_PASSWORD:-wordpress}
+      MYSQL_ROOT_PASSWORD: ${WP_MYSQL_ROOT_PASSWORD:-rootpassword}
+    volumes:
+      - wp_db_data:/var/lib/mysql
+
+  # WordPress
+  wordpress:
+    depends_on:
+      - wordpress-db
+    image: wordpress:latest
+    container_name: headless-wp
+    restart: unless-stopped
+    ports:
+      - "${WP_PORT:-8080}:80"
+    environment:
+      WORDPRESS_DB_HOST: wordpress-db:3306
+      WORDPRESS_DB_USER: ${WP_MYSQL_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${WP_MYSQL_PASSWORD:-wordpress}
+      WORDPRESS_DB_NAME: ${WP_MYSQL_DATABASE:-wordpress}
+      WORDPRESS_DEBUG: ${WP_DEBUG:-1}
+    volumes:
+      - ./headless-wordpress/wordpress:/var/www/html
+      - ./headless-wordpress/config/php.ini:/usr/local/etc/php/conf.d/custom.ini
+
+  # WP-CLI
+  wpcli:
+    depends_on:
+      - wordpress-db
+      - wordpress
+    image: wordpress:cli
+    container_name: headless-wp-cli
+    user: "33:33"
+    volumes:
+      - ./headless-wordpress/wordpress:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: wordpress-db:3306
+      WORDPRESS_DB_USER: ${WP_MYSQL_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${WP_MYSQL_PASSWORD:-wordpress}
+      WORDPRESS_DB_NAME: ${WP_MYSQL_DATABASE:-wordpress}
+    command: tail -f /dev/null
+
+  # Open Core Business Suite - MySQL
+  opencore-mysql:
+    image: mysql:8.0
+    container_name: open_core_bs-mysql-1
+    ports:
+      - "${OPENCORE_DB_PORT:-3306}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${OPENCORE_DB_PASSWORD:-password}
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: ${OPENCORE_DB_DATABASE:-opencore}
+      MYSQL_USER: ${OPENCORE_DB_USERNAME:-sail}
+      MYSQL_PASSWORD: ${OPENCORE_DB_PASSWORD:-password}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - opencore_mysql:/var/lib/mysql
+      - ./open_core_bs/vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - "-p${OPENCORE_DB_PASSWORD:-password}"
+      retries: 3
+      timeout: 5s
+
+  # Open Core Business Suite - Laravel App
+  opencore-app:
+    build:
+      context: ./open_core_bs/docker/8.2
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: "${OPENCORE_WWWGROUP:-1000}"
+    image: sail-8.2/app
+    container_name: open_core_bs-laravel.test-1
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "${OPENCORE_APP_PORT:-80}:80"
+      - "${OPENCORE_VITE_PORT:-5173}:5173"
+    environment:
+      WWWUSER: "${OPENCORE_WWWUSER:-1000}"
+      LARAVEL_SAIL: 1
+      XDEBUG_MODE: "${OPENCORE_XDEBUG_MODE:-off}"
+      XDEBUG_CONFIG: "${OPENCORE_XDEBUG_CONFIG:-client_host=host.docker.internal}"
+    volumes:
+      - ./open_core_bs:/var/www/html
+    depends_on:
+      - opencore-mysql
+
+  # Octarine Admin Dashboard
+  octarine-admin:
+    build:
+      context: ./octarine
+      dockerfile: Dockerfile
+      target: development
+    container_name: octarine-admin
+    restart: unless-stopped
+    ports:
+      - "${OCTARINE_PORT:-5174}:5173"
+    volumes:
+      - ./octarine/src:/app/src
+      - ./octarine/public:/app/public
+      - ./octarine/index.html:/app/index.html
+      - ./octarine/vite.config.ts:/app/vite.config.ts
+      - ./octarine/tailwind.config.js:/app/tailwind.config.js
+      - ./octarine/postcss.config.cjs:/app/postcss.config.cjs
+      - ./octarine/tsconfig.json:/app/tsconfig.json
+      - ./octarine/components.json:/app/components.json
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: yarn run dev --host 0.0.0.0
+
+volumes:
+  wp_db_data:
+    driver: local
+  opencore_mysql:
+    driver: local

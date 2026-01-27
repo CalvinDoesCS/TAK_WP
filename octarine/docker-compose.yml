@@ -7,7 +7,7 @@ services:
     container_name: octarine-admin
     restart: unless-stopped
     ports:
-      - "5173:5173"
+      - "5174:5173"
     volumes:
       - ./src:/app/src
       - ./public:/app/public
