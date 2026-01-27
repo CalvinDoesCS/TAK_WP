@@ -28,7 +28,7 @@ services:
       WORDPRESS_DB_NAME: ${WP_MYSQL_DATABASE:-wordpress}
       WORDPRESS_DEBUG: ${WP_DEBUG:-1}
     volumes:
-      - ./headless-wordpress/wordpress:/var/www/html
+      - wp_data:/var/www/html
       - ./headless-wordpress/config/php.ini:/usr/local/etc/php/conf.d/custom.ini
 
   # WP-CLI
@@ -40,7 +40,7 @@ services:
     container_name: headless-wp-cli
     user: "33:33"
     volumes:
-      - ./headless-wordpress/wordpress:/var/www/html
+      - wp_data:/var/www/html
     environment:
       WORDPRESS_DB_HOST: wordpress-db:3306
       WORDPRESS_DB_USER: ${WP_MYSQL_USER:-wordpress}
@@ -126,6 +126,8 @@ services:
 
 volumes:
   wp_db_data:
+    driver: local
+  wp_data:
     driver: local
   opencore_mysql:
     driver: local
