@@ -1,0 +1,31 @@
+services:
+  octarine-admin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: octarine-admin
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./index.html:/app/index.html
+      - ./vite.config.ts:/app/vite.config.ts
+      - ./tailwind.config.js:/app/tailwind.config.js
+      - ./postcss.config.cjs:/app/postcss.config.cjs
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./components.json:/app/components.json
+      # Prevent overwriting node_modules
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+    command: yarn run dev --host 0.0.0.0
+
+networks:
+  app-network:
+    external: true
+    name: app-network
