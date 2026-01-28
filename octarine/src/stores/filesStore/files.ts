@@ -205,6 +205,18 @@ export const files: Files = {
             component: "WasmApp",
             entries: {},
           },
+          "Demo Room": {
+            id: generateUniqueId(),
+            icon: "application-default-icon.svg",
+            selected: false,
+            animated: false,
+            editable: false,
+            index: 13,
+            type: "file",
+            extension: "app",
+            component: "DemoRoomApp",
+            entries: {},
+          },
         },
       },
       Desktop: {

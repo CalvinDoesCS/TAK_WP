@@ -28,7 +28,7 @@ export type Apps = {
   System: App;
   "System/File Manager": App;
   "System/Calculator": App;
-  "System/WASM App": App;
+  "System/Demo Room": App;
 } & {
   [key: string]: App;
 };
@@ -139,18 +139,11 @@ export const apps: Apps = {
     category: appCategories[2],
     windows: {},
   },
-  "System/WASM App": {
+  "System/Demo Room":{
     pinned: true,
     loading: false,
     supportedFileExtensions: [],
-    category: appCategories[0],
-    windows: {
-      "wasm-demo": {
-        minimize: false,
-        zoom: false,
-        focus: true,
-        zIndex: 1,
-      },
-    },
+    category: appCategories[2],
+    windows: {},
   },
 };
