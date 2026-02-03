@@ -5,10 +5,12 @@ const { createSecureHeaders } = require('next-secure-headers')
  * @type {import('next').NextConfig}
  **/
 module.exports = withFaust({
+	output: 'export',
 	trailingSlash: true,
 	reactStrictMode: true,
 	typedRoutes: false,
 	images: {
+		unoptimized: true,
 		remotePatterns: [
 			{
 				protocol: 'http',

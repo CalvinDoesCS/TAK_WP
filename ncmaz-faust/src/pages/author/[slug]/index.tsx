@@ -1,8 +1,9 @@
 import { GetStaticPropsContext } from 'next'
-import { FaustPage, getNextStaticProps } from '@faustwp/core'
+import { FaustPage } from '@faustwp/core'
+import { getNextStaticPropsNoISR } from '@/utils/getNextStaticPropsNoISR'
 import { gql } from '@/__generated__'
 import { GetAuthorWithPostsQuery } from '@/__generated__/graphql'
-import { GET_POSTS_FIRST_COMMON, REVALIDATE_TIME } from '@/contains/contants'
+import { GET_POSTS_FIRST_COMMON, REVALIDATE_OPTIONS } from '@/contains/contants'
 import React from 'react'
 import { FOOTER_LOCATION, PRIMARY_LOCATION } from '@/contains/menu'
 import AuthorPostsChild from '@/container/author/AuthorPostsChild'
@@ -28,9 +29,9 @@ export async function getStaticPaths() {
 	}
 }
 export function getStaticProps(ctx: GetStaticPropsContext) {
-	return getNextStaticProps(ctx, {
+	return getNextStaticPropsNoISR(ctx, {
 		Page,
-		revalidate: REVALIDATE_TIME,
+		...REVALIDATE_OPTIONS,
 	})
 }
 

@@ -217,6 +217,18 @@ export const files: Files = {
             component: "DemoRoomApp",
             entries: {},
           },
+          "Ncmaz Faust": {
+            id: generateUniqueId(),
+            icon: "application-default-icon.svg",
+            selected: false,
+            animated: false,
+            editable: false,
+            index: 14,
+            type: "file",
+            extension: "app",
+            component: "NcmazFaustWasmApp",
+            entries: {},
+          },
         },
       },
       Desktop: {

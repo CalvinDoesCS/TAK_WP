@@ -198,6 +198,13 @@ function octane_register_rest_routes() {
         'callback' => 'octane_list_rooms',
         'permission_callback' => '__return_true',
     ]);
+
+    // Provide WordPress data for Ncmaz-Faust WASM app
+    register_rest_route('octane/v1', '/ncmaz-data', [
+        'methods' => 'GET',
+        'callback' => 'octane_get_ncmaz_data',
+        'permission_callback' => '__return_true',
+    ]);
 }
 add_action('rest_api_init', 'octane_register_rest_routes');
 
@@ -251,6 +258,48 @@ function octane_serve_wasm($request) {
     // Output raw binary
     echo $wasm_content;
     exit;
+}
+
+/**
+ * REST endpoint to provide WordPress data for Ncmaz-Faust
+ */
+function octane_get_ncmaz_data($request) {
+    $posts = get_posts([
+        'numberposts' => 5,
+        'post_status' => 'publish',
+    ]);
+
+    $post_data = array_map(function ($post) {
+        return [
+            'id' => $post->ID,
+            'title' => get_the_title($post),
+            'excerpt' => get_the_excerpt($post),
+            'link' => get_permalink($post),
+            'date' => get_the_date('c', $post),
+            'author' => get_the_author_meta('display_name', $post->post_author),
+        ];
+    }, $posts);
+
+    $current_user = wp_get_current_user();
+    $user_data = $current_user && $current_user->ID
+        ? [
+            'id' => $current_user->ID,
+            'name' => $current_user->display_name,
+            'email' => $current_user->user_email,
+          ]
+        : null;
+
+    return rest_ensure_response([
+        'success' => true,
+        'timestamp' => time(),
+        'site' => [
+            'name' => get_bloginfo('name'),
+            'url' => get_bloginfo('url'),
+            'description' => get_bloginfo('description'),
+        ],
+        'user' => $user_data,
+        'posts' => $post_data,
+    ]);
 }
 
 /**

@@ -1,8 +1,6 @@
 import { FC } from 'react'
 import Navigation from '@/components/Navigation/Navigation'
 import MenuBar from '@/components/MenuBar/MenuBar'
-import { NC_PRIMARY_MENU_QUERY_FRAGMENT } from '@/fragments/menu'
-import { FragmentType } from '@/__generated__'
 import AvatarDropdown from './AvatarDropdown'
 import Brand from './Brand'
 import CreateBtn from './CreateBtn'
@@ -10,7 +8,7 @@ import { SearchIconBtn } from './HeaderSearch'
 import { NC_SITE_SETTINGS } from '@/contains/site-settings'
 
 export interface MainNav1Props {
-	menuItems: FragmentType<typeof NC_PRIMARY_MENU_QUERY_FRAGMENT>[]
+	menuItems: any[]
 	title?: string | null
 	description?: string | null
 }

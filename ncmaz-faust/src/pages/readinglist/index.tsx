@@ -3,14 +3,15 @@ import {
 	GetReadingListPageQuery,
 	NcgeneralSettingsFieldsFragmentFragment,
 } from '../../__generated__/graphql'
-import { FaustPage, getNextStaticProps } from '@faustwp/core'
+import { FaustPage } from '@faustwp/core'
 import { GetStaticPropsContext } from 'next'
+import { getNextStaticPropsNoISR } from '@/utils/getNextStaticPropsNoISR'
 import { FOOTER_LOCATION, PRIMARY_LOCATION } from '@/contains/menu'
 import PageLayout from '@/container/PageLayout'
 import Heading from '@/components/Heading/Heading'
 import getTrans from '@/utils/getTrans'
 import ReadingListPageChild from '@/container/readinglist/ReadingListPageChild'
-import { REVALIDATE_TIME } from '@/contains/contants'
+import { REVALIDATE_OPTIONS } from '@/contains/contants'
 
 //
 
@@ -72,9 +73,9 @@ Page.query = gql(`
 `)
 
 export function getStaticProps(ctx: GetStaticPropsContext) {
-	return getNextStaticProps(ctx, {
+	return getNextStaticPropsNoISR(ctx, {
 		Page,
-		revalidate: REVALIDATE_TIME,
+		...REVALIDATE_OPTIONS,
 	})
 }
 

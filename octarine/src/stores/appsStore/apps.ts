@@ -29,6 +29,7 @@ export type Apps = {
   "System/File Manager": App;
   "System/Calculator": App;
   "System/Demo Room": App;
+  "System/Ncmaz Faust": App;
 } & {
   [key: string]: App;
 };
@@ -144,6 +145,13 @@ export const apps: Apps = {
     loading: false,
     supportedFileExtensions: [],
     category: appCategories[2],
+    windows: {},
+  },
+  "System/Ncmaz Faust": {
+    pinned: true,
+    loading: false,
+    supportedFileExtensions: [],
+    category: appCategories[0],
     windows: {},
   },
 };

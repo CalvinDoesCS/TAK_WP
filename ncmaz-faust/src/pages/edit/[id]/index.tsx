@@ -1,9 +1,6 @@
 import { GetStaticPaths, GetStaticPropsContext } from 'next'
-import {
-	FaustPage,
-	getApolloAuthClient,
-	getNextStaticProps,
-} from '@faustwp/core'
+import { FaustPage, getApolloAuthClient } from '@faustwp/core'
+import { getNextStaticPropsNoISR } from '@/utils/getNextStaticPropsNoISR'
 import CreateNewPostEditor from '@/components/PostSubmissionEditor/CreateNewPostEditor'
 import { gql } from '@/__generated__'
 import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment'
@@ -198,9 +195,8 @@ const Page: FaustPage<{}> = (props) => {
 }
 
 export function getStaticProps(ctx: GetStaticPropsContext) {
-	return getNextStaticProps(ctx, {
+	return getNextStaticPropsNoISR(ctx, {
 		Page,
-		revalidate: false,
 	})
 }
 

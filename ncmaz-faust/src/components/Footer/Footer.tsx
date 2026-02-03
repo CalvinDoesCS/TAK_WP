@@ -1,5 +1,3 @@
-import { FragmentType } from '@/__generated__'
-import { NC_FOOTER_MENU_QUERY_FRAGMENT } from '@/fragments/menu'
 import WidgetAddSubscriberForm from '../WidgetAddSubscriberForm/WidgetAddSubscriberForm'
 import { NC_SITE_SETTINGS } from '@/contains/site-settings'
 import MyImage from '../MyImage'
@@ -8,7 +6,7 @@ import { NcFooterMenuFieldsFragmentFragment } from '@/__generated__/graphql'
 import Link from 'next/link'
 
 interface Props {
-	menuItems: FragmentType<typeof NC_FOOTER_MENU_QUERY_FRAGMENT>[] | null
+	menuItems: any[] | null
 }
 
 export type FooterNavItemType = NcFooterMenuFieldsFragmentFragment & {

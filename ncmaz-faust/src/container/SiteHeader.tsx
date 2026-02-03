@@ -1,7 +1,5 @@
 import { FC } from 'react'
 import { useThemeMode } from '@/hooks/useThemeMode'
-import { FragmentType } from '@/__generated__'
-import { NC_PRIMARY_MENU_QUERY_FRAGMENT } from '@/fragments/menu'
 import MainNav2 from '@/components/Header/MainNav2'
 import MainNav3 from '@/components/Header/MainNav3'
 import Banner from '@/components/Banner'
@@ -15,7 +13,7 @@ export const { useGlobalState: useGlobalStateHeaderStyle } =
 	createGlobalState(initialState)
 
 interface Props {
-	menuItems: FragmentType<typeof NC_PRIMARY_MENU_QUERY_FRAGMENT>[]
+	menuItems: any[]
 	siteTitle?: string | null
 	siteDescription?: string | null
 }

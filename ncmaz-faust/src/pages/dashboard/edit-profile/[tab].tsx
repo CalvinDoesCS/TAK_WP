@@ -2,10 +2,10 @@ import { GetStaticPaths, GetStaticPropsContext } from 'next'
 import {
 	FaustPage,
 	getApolloAuthClient,
-	getNextStaticProps,
 	useAuth,
 	useLogout,
 } from '@faustwp/core'
+import { getNextStaticPropsNoISR } from '@/utils/getNextStaticPropsNoISR'
 import { gql } from '@/__generated__'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -192,7 +192,7 @@ const Page: FaustPage<{}> = () => {
 	const viewerProfile = getUserDataFromUserCardFragment({
 		...(viewer || {}),
 		...(getViewerProfileResult.data?.viewer || {}),
-	})
+	}) as any
 	const DELETE_NONCE =
 		getDeleteAccountNonceResult.data?.ncmazFaustCreateDeleteAccountNonce
 			?.nonce || ''
@@ -973,9 +973,8 @@ const Page: FaustPage<{}> = () => {
 }
 
 export function getStaticProps(ctx: GetStaticPropsContext) {
-	return getNextStaticProps(ctx, {
+	return getNextStaticPropsNoISR(ctx, {
 		Page,
-		revalidate: false,
 	})
 }
 

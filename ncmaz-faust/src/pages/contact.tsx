@@ -3,7 +3,7 @@ import ButtonPrimary from '@/components/Button/ButtonPrimary'
 import Input from '@/components/Input/Input'
 import Label from '@/components/Label/Label'
 import Textarea from '@/components/Textarea/Textarea'
-import { FaustPage, getNextStaticProps } from '@faustwp/core'
+import { FaustPage } from '@faustwp/core'
 import PageLayout from '@/container/PageLayout'
 import {
 	GetReadingListPageQuery,
@@ -23,7 +23,8 @@ import Page404Content from '@/container/404Content'
 import Error from '@/components/Error'
 import Link from 'next/link'
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'
-import { REVALIDATE_TIME } from '@/contains/contants'
+import { REVALIDATE_OPTIONS } from '@/contains/contants'
+import { getNextStaticPropsNoISR } from '@/utils/getNextStaticPropsNoISR'
 
 const PageContact = () => {
 	const T = getTrans()
@@ -250,9 +251,9 @@ Page.query = gql(`
 `)
 
 export function getStaticProps(ctx: GetStaticPropsContext) {
-	return getNextStaticProps(ctx, {
+	return getNextStaticPropsNoISR(ctx, {
 		Page,
-		revalidate: REVALIDATE_TIME,
+		...REVALIDATE_OPTIONS,
 	})
 }
 

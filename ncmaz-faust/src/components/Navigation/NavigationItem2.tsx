@@ -10,8 +10,6 @@ import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import { FC, Fragment } from 'react'
 import Link from 'next/link'
 import NcImage from '../NcImage/NcImage'
-import { useFragment } from '@/__generated__'
-import { NC_PRIMARY_MENU_QUERY_FRAGMENT } from '@/fragments/menu'
 import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment'
 import ncFormatDate from '@/utils/formatDate'
 import { NavItemType, NavigationItemProps } from './NavigationItem'
@@ -20,11 +18,14 @@ import { NcmazFcPostCardFieldsFragment } from '@/__generated__/graphql'
 export interface Props extends NavigationItemProps {}
 
 const NavigationItem2: FC<Props> = ({ menuItem: menuItemProp }) => {
-	const menuItem = useFragment(NC_PRIMARY_MENU_QUERY_FRAGMENT, menuItemProp)
+	const menuItem = menuItemProp
 
 	// ===================== MENU MEGAMENU =====================
 	const renderMegaMenu = (menu: NavItemType) => {
-		if (!menu.children?.length && !menu.ncmazfaustMenu?.posts?.nodes.length) {
+		if (
+			!menu.children?.length &&
+			!menu.ncmazfaustMenu?.posts?.nodes?.nodes?.length
+		) {
 			return null
 		}
 
@@ -102,64 +103,69 @@ const NavigationItem2: FC<Props> = ({ menuItem: menuItemProp }) => {
 														className={`grid grid-cols-1 gap-8 sm:gap-6 lg:grid-cols-${postsColumns}`}
 													>
 														<h3 className="sr-only">Recent posts</h3>
-														{menu.ncmazfaustMenu?.posts?.nodes.map((p) => {
-															if (p.__typename !== 'Post') return null
-															const post = getPostDataFromPostFragment(
-																p as NcmazFcPostCardFieldsFragment,
-															)
+														{menu.ncmazfaustMenu?.posts?.nodes?.nodes?.map(
+															(p) => {
+																if (p.__typename !== 'Post') return null
+																const post = getPostDataFromPostFragment(
+																	p as NcmazFcPostCardFieldsFragment,
+																)
 
-															return (
-																<article
-																	key={post.databaseId}
-																	className="relative isolate flex max-w-2xl flex-col gap-x-8 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch"
-																>
-																	<div className="relative flex-none">
-																		<NcImage
-																			containerClassName="aspect-[2/1] w-full rounded-xl bg-neutral-100 sm:aspect-[16/9] sm:h-32 lg:h-auto z-0"
-																			fill
-																			className="rounded-xl object-cover"
-																			src={post.featuredImage?.sourceUrl || ''}
-																			sizes="300px"
-																			alt={post.title || ''}
-																		/>
-																		<div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-neutral-900/10" />
-																	</div>
-																	<div>
-																		<div className="flex flex-wrap items-center gap-1 xl:gap-x-4">
-																			<time
-																				dateTime={post.date}
-																				className="text-xs leading-6 text-neutral-500 dark:text-neutral-400"
-																			>
-																				{ncFormatDate(post.date)}
-																			</time>
-																			<Link
-																				href={
-																					post.categories?.nodes?.[0]?.uri || ''
+																return (
+																	<article
+																		key={post.databaseId}
+																		className="relative isolate flex max-w-2xl flex-col gap-x-8 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch"
+																	>
+																		<div className="relative flex-none">
+																			<NcImage
+																				containerClassName="aspect-[2/1] w-full rounded-xl bg-neutral-100 sm:aspect-[16/9] sm:h-32 lg:h-auto z-0"
+																				fill
+																				className="rounded-xl object-cover"
+																				src={
+																					post.featuredImage?.sourceUrl || ''
 																				}
-																				className="relative z-10 rounded-full bg-neutral-50 px-3 py-1.5 text-xs font-medium text-neutral-600 hover:bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-800/80"
-																			>
-																				{post.categories?.nodes?.[0]?.name ||
-																					''}
-																			</Link>
+																				sizes="300px"
+																				alt={post.title || ''}
+																			/>
+																			<div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-neutral-900/10" />
 																		</div>
-																		<h4 className="mt-2 text-sm font-medium leading-6 text-neutral-900 dark:text-neutral-300">
-																			<Link href={post.uri}>
-																				<span className="absolute inset-0" />
-																				{post.title}
-																			</Link>
-																		</h4>
-																		<div className="mt-2 break-words text-sm leading-6 text-neutral-500 dark:text-neutral-400">
-																			<span
-																				className="line-clamp-3"
-																				dangerouslySetInnerHTML={{
-																					__html: post.excerpt,
-																				}}
-																			></span>
+																		<div>
+																			<div className="flex flex-wrap items-center gap-1 xl:gap-x-4">
+																				<time
+																					dateTime={post.date}
+																					className="text-xs leading-6 text-neutral-500 dark:text-neutral-400"
+																				>
+																					{ncFormatDate(post.date)}
+																				</time>
+																				<Link
+																					href={
+																						post.categories?.nodes?.[0]?.uri ||
+																						''
+																					}
+																					className="relative z-10 rounded-full bg-neutral-50 px-3 py-1.5 text-xs font-medium text-neutral-600 hover:bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-800/80"
+																				>
+																					{post.categories?.nodes?.[0]?.name ||
+																						''}
+																				</Link>
+																			</div>
+																			<h4 className="mt-2 text-sm font-medium leading-6 text-neutral-900 dark:text-neutral-300">
+																				<Link href={post.uri}>
+																					<span className="absolute inset-0" />
+																					{post.title}
+																				</Link>
+																			</h4>
+																			<div className="mt-2 break-words text-sm leading-6 text-neutral-500 dark:text-neutral-400">
+																				<span
+																					className="line-clamp-3"
+																					dangerouslySetInnerHTML={{
+																						__html: post.excerpt,
+																					}}
+																				></span>
+																			</div>
 																		</div>
-																	</div>
-																</article>
-															)
-														})}
+																	</article>
+																)
+															},
+														)}
 													</div>
 												</div>
 											</div>

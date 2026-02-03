@@ -474,21 +474,7 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 		description
 		registeredDate
 		ncUserMeta {
-			buymeacoffeUrl
-			color
-			facebookUrl
-			githubUrl
-			instagramUrl
-			linkedinUrl
-			mediumUrl
-			ncBio
-			pinterestUrl
-			twitchUrl
-			twitterUrl
-			vimeoUrl
-			websiteUrl
-			youtubeUrl
-			tiktokUrl
+				ncBio
 			featuredImage {
 				node {
 					...NcmazFcImageFields

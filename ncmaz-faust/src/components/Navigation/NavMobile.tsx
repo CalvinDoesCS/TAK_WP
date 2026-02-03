@@ -13,14 +13,12 @@ import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 import { NC_SITE_SETTINGS } from '@/contains/site-settings'
 import MyImage from '../MyImage'
-import { FragmentType } from '@/__generated__'
-import { NC_PRIMARY_MENU_QUERY_FRAGMENT } from '@/fragments/menu'
 import { flatListToHierarchical } from '@faustwp/core'
 import { useRouter } from 'next/router'
 import { SearchIcon } from '../Icons/Icons'
 
 export interface NavMobileProps {
-	menuItems: FragmentType<typeof NC_PRIMARY_MENU_QUERY_FRAGMENT>[]
+	menuItems: any[]
 	onClickClose?: () => void
 }
 

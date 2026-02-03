@@ -1,7 +1,7 @@
 import { getWordPressProps, WordPressTemplate } from '@faustwp/core'
 import { GetStaticProps } from 'next'
 import { WordPressTemplateProps } from '../types'
-import { REVALIDATE_TIME } from '@/contains/contants'
+import { REVALIDATE_OPTIONS } from '@/contains/contants'
 import { IS_CHISNGHIAX_DEMO_SITE } from '@/contains/site-settings'
 
 export default function Page(props: WordPressTemplateProps) {
@@ -60,6 +60,13 @@ export async function getStaticPaths() {
 	}
 }
 
-export const getStaticProps: GetStaticProps = (ctx) => {
-	return getWordPressProps({ ctx, revalidate: REVALIDATE_TIME })
+export const getStaticProps: GetStaticProps = async (ctx) => {
+	const result = await getWordPressProps({ ctx, ...REVALIDATE_OPTIONS })
+
+	if (result && typeof result === 'object' && 'revalidate' in result) {
+		const { revalidate, ...rest } = result as any
+		return rest
+	}
+
+	return result
 }

@@ -10,8 +10,6 @@ import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import { FC, Fragment, useState } from 'react'
 import Link from 'next/link'
 import NcImage from '../NcImage/NcImage'
-import { FragmentType, useFragment } from '@/__generated__'
-import { NC_PRIMARY_MENU_QUERY_FRAGMENT } from '@/fragments/menu'
 import {
 	NcPrimaryMenuFieldsFragmentFragment,
 	NcmazFcPostCardFieldsFragment,
@@ -24,13 +22,13 @@ export type NavItemType = NcPrimaryMenuFieldsFragmentFragment & {
 }
 
 export interface NavigationItemProps {
-	menuItem: FragmentType<typeof NC_PRIMARY_MENU_QUERY_FRAGMENT>
+	menuItem: NavItemType
 }
 
 const NavigationItem: FC<NavigationItemProps> = ({
 	menuItem: menuItemProp,
 }) => {
-	const menuItem = useFragment(NC_PRIMARY_MENU_QUERY_FRAGMENT, menuItemProp)
+	const menuItem = menuItemProp
 
 	const [menuCurrentHovers, setMenuCurrentHovers] = useState<string[]>([])
 
@@ -48,7 +46,10 @@ const NavigationItem: FC<NavigationItemProps> = ({
 
 	// ===================== MENU MEGAMENU =====================
 	const renderMegaMenu = (menu: NavItemType) => {
-		if (!menu.children?.length && !menu.ncmazfaustMenu?.posts?.nodes.length) {
+		if (
+			!menu.children?.length &&
+			!menu.ncmazfaustMenu?.posts?.nodes?.nodes?.length
+		) {
 			return null
 		}
 
@@ -113,7 +114,7 @@ const NavigationItem: FC<NavigationItemProps> = ({
 										className={`grid grid-cols-1 gap-10 sm:gap-8 lg:grid-cols-${postsColumns}`}
 									>
 										<h3 className="sr-only">Recent posts</h3>
-										{menu.ncmazfaustMenu?.posts?.nodes.map((p) => {
+										{menu.ncmazfaustMenu?.posts?.nodes?.nodes?.map((p) => {
 											if (p.__typename !== 'Post') return null
 											const post = getPostDataFromPostFragment(
 												p as NcmazFcPostCardFieldsFragment,

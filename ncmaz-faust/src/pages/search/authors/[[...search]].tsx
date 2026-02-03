@@ -1,11 +1,12 @@
 import { GetStaticPropsContext } from 'next'
-import { FaustPage, getNextStaticProps } from '@faustwp/core'
+import { FaustPage } from '@faustwp/core'
+import { getNextStaticPropsNoISR } from '@/utils/getNextStaticPropsNoISR'
 import { gql } from '@/__generated__'
 import {
 	NcgeneralSettingsFieldsFragmentFragment,
 	SearchPageQueryGetUsersBySearchQuery,
 } from '@/__generated__/graphql'
-import { GET_USERS_FIRST_COMMON, REVALIDATE_TIME } from '@/contains/contants'
+import { GET_USERS_FIRST_COMMON, REVALIDATE_OPTIONS } from '@/contains/contants'
 import React from 'react'
 import ButtonPrimary from '@/components/Button/ButtonPrimary'
 import Empty from '@/components/Empty'
@@ -166,9 +167,9 @@ export async function getStaticPaths() {
 	}
 }
 export function getStaticProps(ctx: GetStaticPropsContext) {
-	return getNextStaticProps(ctx, {
+	return getNextStaticPropsNoISR(ctx, {
 		Page,
-		revalidate: REVALIDATE_TIME,
+		...REVALIDATE_OPTIONS,
 	})
 }
 

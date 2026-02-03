@@ -23,13 +23,17 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 		NC_USER_FULL_FIELDS_FRAGMENT,
 		user || {},
 	)
+	const userMeta = ncUserMeta as Record<
+		string,
+		string | null | undefined
+	> | null
 	const router = useRouter()
 	const authorSlug = router.query.slug as string
 
 	let userSocials: TSocialsItem[] = [
 		{
 			name: 'Facebook',
-			href: ncUserMeta?.facebookUrl || '',
+			href: userMeta?.facebookUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
@@ -43,7 +47,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 		},
 		{
 			name: 'Twitter',
-			href: ncUserMeta?.twitterUrl || '',
+			href: userMeta?.twitterUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
@@ -56,8 +60,8 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 			),
 		},
 		{
-			name: 'Instagram',
-			href: ncUserMeta?.instagramUrl || '',
+			name: 'Buy me a coffee',
+			href: userMeta?.buymeacoffeUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
@@ -71,7 +75,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 		},
 		{
 			name: 'Youtube',
-			href: ncUserMeta?.youtubeUrl || '',
+			href: userMeta?.youtubeUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
@@ -85,7 +89,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 		},
 		{
 			name: 'Linkedin',
-			href: ncUserMeta?.linkedinUrl || '',
+			href: userMeta?.linkedinUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
@@ -99,7 +103,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 		},
 		{
 			name: 'Tiktok',
-			href: ncUserMeta?.tiktokUrl || '',
+			href: userMeta?.tiktokUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
@@ -113,7 +117,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 		},
 		{
 			name: 'Twitch',
-			href: ncUserMeta?.twitchUrl || '',
+			href: userMeta?.twitchUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
@@ -127,7 +131,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 		},
 		{
 			name: 'Vimeo',
-			href: ncUserMeta?.vimeoUrl || '',
+			href: userMeta?.vimeoUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
@@ -141,7 +145,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 		},
 		{
 			name: 'Pinterest',
-			href: ncUserMeta?.pinterestUrl || '',
+			href: userMeta?.pinterestUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
@@ -155,7 +159,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 		},
 		{
 			name: 'Medium',
-			href: ncUserMeta?.mediumUrl || '',
+			href: userMeta?.mediumUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
@@ -169,7 +173,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 		},
 		{
 			name: 'Github',
-			href: ncUserMeta?.githubUrl || '',
+			href: userMeta?.githubUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
@@ -182,8 +186,8 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 			),
 		},
 		{
-			name: 'By me a coffee',
-			href: ncUserMeta?.buymeacoffeUrl || '',
+			name: 'Buy me a coffee',
+			href: userMeta?.buymeacoffeUrl || '',
 			icon: (
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -268,16 +272,16 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 									className="author_description block text-sm text-neutral-500 dark:text-neutral-400"
 									dangerouslySetInnerHTML={{ __html: description || '' }}
 								></span>
-								{!!ncUserMeta?.websiteUrl && (
+								{!!userMeta?.websiteUrl && (
 									<a
-										href={ncUserMeta?.websiteUrl}
+										href={userMeta?.websiteUrl}
 										target="_blank"
 										rel="noopener noreferrer"
 										className="flex cursor-pointer items-center space-x-2.5 truncate text-xs font-medium text-neutral-500 rtl:space-x-reverse dark:text-neutral-400"
 									>
 										<GlobeAltIcon className="h-4 w-4 flex-shrink-0" />
 										<span className="truncate text-neutral-700 dark:text-neutral-300">
-											{ncUserMeta?.websiteUrl}
+											{userMeta?.websiteUrl}
 										</span>
 									</a>
 								)}

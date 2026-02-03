@@ -30,7 +30,7 @@ export function getCatgoryDataFromCategoryFragment(
 
   const data: NcmazFcCategoryFullFieldsFragmentFragment & {
     featuredImageMeta: NcmazFcImageFieldsFragment | null | undefined;
-    colorMeta: (string | null)[] | null | undefined;
+    colorMeta: string | null | undefined;
   } = {
     ...fullQuery,
     __typename: "Category",

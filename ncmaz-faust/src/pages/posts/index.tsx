@@ -1,4 +1,5 @@
-import { FaustPage, getNextServerSideProps } from '@faustwp/core'
+import { FaustPage } from '@faustwp/core'
+import { getNextStaticPropsNoISR } from '@/utils/getNextStaticPropsNoISR'
 import { gql } from '@/__generated__'
 import {
 	NcgeneralSettingsFieldsFragmentFragment,
@@ -7,8 +8,7 @@ import {
 	PostsFilterPageQueryGetPostsQuery,
 } from '@/__generated__/graphql'
 import { FILTERS_OPTIONS } from '@/contains/contants'
-import React from 'react'
-import { useRouter } from 'next/router'
+import React, { useState } from 'react'
 import { FOOTER_LOCATION, PRIMARY_LOCATION } from '@/contains/menu'
 import PageLayout from '@/container/PageLayout'
 import { PostDataFragmentType } from '@/data/types'
@@ -20,6 +20,7 @@ import TabFilters from '@/components/TabFilters'
 import getTrans from '@/utils/getTrans'
 import { FireIcon } from '@/components/Icons/Icons'
 import ArchiveFilterListBox from '@/components/ArchiveFilterListBox/ArchiveFilterListBox'
+import useHandleGetPostsArchivePage from '@/hooks/useHandleGetPostsArchivePage'
 
 const T = getTrans()
 const GET_POSTS_FIRST_COMMON = 24
@@ -39,7 +40,6 @@ interface ConTextQuery {
 
 const Page: FaustPage<PostsFilterPageQueryGetPostsQuery> = (props) => {
 	const { posts } = props.data || {}
-	const router = useRouter()
 
 	//
 	const {} = useGetPostsNcmazMetaByIds({
@@ -49,86 +49,42 @@ const Page: FaustPage<PostsFilterPageQueryGetPostsQuery> = (props) => {
 
 	const initPosts = (posts?.nodes as PostDataFragmentType[]) || []
 	const ctxQuery: ConTextQuery = props.__PAGE_VARIABLES__?.ctxQuery || {}
+	const [categoryIn, setCategoryIn] = useState<number[]>(
+		ctxQuery.categoryIn || [],
+	)
+	const [tagIn, setTagIn] = useState<number[]>(ctxQuery.tagIn || [])
+	const [authorIn, setAuthorIn] = useState<number[]>(ctxQuery.authorIn || [])
+	const [keyword, setKeyword] = useState<string>(ctxQuery.search || '')
+
+	const {
+		currentPosts,
+		handleChangeFilterPosts,
+		handleClickShowMore,
+		hasNextPage,
+		loading,
+	} = useHandleGetPostsArchivePage({
+		initPosts,
+		initPostsPageInfo: posts?.pageInfo || null,
+		categoryIn,
+		tagIn,
+		authorIn,
+		keyword,
+	})
 
 	const onCategoriesUpdated = (ids: number[]) => {
-		router.push({
-			query: removeEmptyKey({
-				...ctxQuery,
-				categoryIn: ids,
-				first: null,
-				last: null,
-				after: null,
-				before: null,
-			}),
-		})
+		setCategoryIn(ids)
 	}
 
 	const onTagsUpdated = (ids: number[]) => {
-		router.push({
-			query: removeEmptyKey({
-				...ctxQuery,
-				tagIn: ids,
-				first: null,
-				last: null,
-				after: null,
-				before: null,
-			}),
-		})
+		setTagIn(ids)
 	}
 
 	const onAuthorsUpdated = (ids: number[]) => {
-		router.push({
-			query: removeEmptyKey({
-				...ctxQuery,
-				authorIn: ids,
-				first: null,
-				last: null,
-				after: null,
-				before: null,
-			}),
-		})
+		setAuthorIn(ids)
 	}
 
-	const onKeywordUpdated = (keyword: string) => {
-		router.push({
-			query: removeEmptyKey({
-				...ctxQuery,
-				search: keyword,
-				first: null,
-				last: null,
-				after: null,
-				before: null,
-			}),
-		})
-	}
-
-	const onClickNext = () => {
-		router.push({
-			query: removeEmptyKey({
-				...ctxQuery,
-				after: posts?.pageInfo.endCursor,
-				first: ctxQuery.first,
-				before: null,
-				last: null,
-			}),
-		})
-	}
-
-	const onClickPrev = () => {
-		router.push({
-			query: removeEmptyKey({
-				...ctxQuery,
-				first: null,
-				after: null,
-				before: posts?.pageInfo.startCursor,
-				last: ctxQuery.first,
-			}),
-		})
-	}
-
-	const removeEmptyKey = (obj: Record<string, any>) => {
-		Object.keys(obj).forEach((key) => !obj[key] && delete obj[key])
-		return obj
+	const onKeywordUpdated = (value: string) => {
+		setKeyword(value)
 	}
 
 	function checkRouterQueryFilter(
@@ -200,17 +156,7 @@ const Page: FaustPage<PostsFilterPageQueryGetPostsQuery> = (props) => {
 												if (!fiterValue) {
 													return
 												}
-												router.push({
-													query: removeEmptyKey({
-														...ctxQuery,
-														first: null,
-														last: null,
-														after: null,
-														before: null,
-														field: fiterValue.field,
-														order: fiterValue.order,
-													}),
-												})
+												handleChangeFilterPosts(item)
 											}}
 											lists={FILTERS_OPTIONS}
 										/>
@@ -219,11 +165,10 @@ const Page: FaustPage<PostsFilterPageQueryGetPostsQuery> = (props) => {
 
 								{/* LOOP ITEMS */}
 								<GridPostsArchive
-									posts={initPosts}
-									showNextPagination={posts?.pageInfo.hasNextPage}
-									showPrevPagination={posts?.pageInfo.hasPreviousPage}
-									onClickNext={onClickNext}
-									onClickPrev={onClickPrev}
+									posts={currentPosts}
+									loading={loading}
+									showLoadmore={hasNextPage}
+									onClickLoadmore={handleClickShowMore}
 								/>
 							</main>
 						</div>
@@ -369,8 +314,8 @@ Page.query = gql(`
   }
 `)
 
-export function getServerSideProps(ctx: GetServerSidePropsContext) {
-	return getNextServerSideProps(ctx, {
+export function getStaticProps(ctx: GetServerSidePropsContext) {
+	return getNextStaticPropsNoISR(ctx as any, {
 		Page,
 	})
 }

@@ -16,29 +16,30 @@ export const NC_PRIMARY_MENU_QUERY_FRAGMENT = gql(`
           numberOfMenuColumns
           posts {
             nodes {
-              id
-              ... on Post {
-                __typename
-                databaseId
-                title
-                uri
-                modified
-                date
-                excerpt
-                categories {
-                  nodes {
-                    ...NcmazFcCategoryCardFieldsNotImage
+              nodes {
+                ... on Post {
+                  __typename
+                  databaseId
+                  title
+                  uri
+                  modified
+                  date
+                  excerpt
+                  categories {
+                    nodes {
+                      ...NcmazFcCategoryCardFieldsNotImage
+                    }
                   }
-                }
-                featuredImage {
-                  node {
-                    ...NcmazFcImageFields
+                  featuredImage {
+                    node {
+                      ...NcmazFcImageFields
+                    }
                   }
-                }
-                postFormats {
-                  nodes {
-                    name
-                    slug
+                  postFormats {
+                    nodes {
+                      name
+                      slug
+                    }
                   }
                 }
               }

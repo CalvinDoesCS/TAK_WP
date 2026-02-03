@@ -1,11 +1,12 @@
 import { GetStaticPropsContext } from 'next'
-import { FaustPage, getNextStaticProps } from '@faustwp/core'
+import { FaustPage } from '@faustwp/core'
+import { getNextStaticPropsNoISR } from '@/utils/getNextStaticPropsNoISR'
 import { gql } from '@/__generated__'
 import { PageAuthorBookmarksGetDataQuery } from '@/__generated__/graphql'
 import React from 'react'
 import { FOOTER_LOCATION, PRIMARY_LOCATION } from '@/contains/menu'
 import AuthorSaveChild from '@/container/author/AuthorSaveChild'
-import { REVALIDATE_TIME } from '@/contains/contants'
+import { REVALIDATE_OPTIONS } from '@/contains/contants'
 
 const Page: FaustPage<PageAuthorBookmarksGetDataQuery> = (props) => {
 	return (
@@ -23,9 +24,9 @@ export async function getStaticPaths() {
 	}
 }
 export function getStaticProps(ctx: GetStaticPropsContext) {
-	return getNextStaticProps(ctx, {
+	return getNextStaticPropsNoISR(ctx, {
 		Page,
-		revalidate: REVALIDATE_TIME,
+		...REVALIDATE_OPTIONS,
 	})
 }
 

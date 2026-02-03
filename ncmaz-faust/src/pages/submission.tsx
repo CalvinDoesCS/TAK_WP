@@ -1,5 +1,6 @@
 import { GetStaticPropsContext } from 'next'
-import { FaustPage, getNextStaticProps } from '@faustwp/core'
+import { FaustPage } from '@faustwp/core'
+import { getNextStaticPropsNoISR } from '@/utils/getNextStaticPropsNoISR'
 import CreateNewPostEditor from '@/components/PostSubmissionEditor/CreateNewPostEditor'
 import { useRouter } from 'next/router'
 import CircleLoading from '@/components/Loading/CircleLoading'
@@ -76,9 +77,8 @@ const Page: FaustPage<{}> = (props) => {
 }
 
 export function getStaticProps(ctx: GetStaticPropsContext) {
-	return getNextStaticProps(ctx, {
+	return getNextStaticPropsNoISR(ctx, {
 		Page,
-		revalidate: false,
 	})
 }
 
