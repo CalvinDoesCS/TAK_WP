@@ -2,7 +2,7 @@
 
 ## Big picture architecture
 
-- This repo is a multi-service workspace: WordPress is the host shell (headless CMS), Octarine is the React desktop UI, and WASM modules are built separately and served by WordPress.
+- This repo is a multi-service workspace: WordPress is the host shell (headless CMS), Octarine is the React desktop UI, and WASM modules are built in [wasm-apps](wasm-apps) and served by WordPress.
 - Data flow: wasm-apps build → files land in [headless-wordpress/wordpress/wp-content/wasm](headless-wordpress/wordpress/wp-content/wasm) → REST endpoint in [headless-wordpress/wordpress/wp-content/plugins/tak-wasm-endpoint.php](headless-wordpress/wordpress/wp-content/plugins/tak-wasm-endpoint.php) serves /wp-json/tak/v1/wasm/{module} → Octarine `WasmApp` loads modules in [octarine/src/applications/WasmApp/index.tsx](octarine/src/applications/WasmApp/index.tsx).
 - Octarine’s “desktop OS” model registers apps in two stores and then dynamically loads components (see [OCTARINE_APP_STRUCTURE.md](OCTARINE_APP_STRUCTURE.md)).
 - Auth is abstracted via providers in [services/auth](services/auth) with a shared `useAuth` hook and env-configurable provider selection (details in [services/auth/README.md](services/auth/README.md)).
@@ -27,7 +27,7 @@
 
 - WordPress GraphQL and REST endpoints are the main data APIs for frontends (details in [headless-wordpress/README.md](headless-wordpress/README.md)).
 - Octarine fetches WASM over HTTP from WordPress; failures usually trace back to the plugin endpoint or missing files in wp-content/wasm.
-- The workspace includes a micro-app template for “room” APIs and scoped JWT transitions (see [README.md](README.md)).
+- The workspace includes a micro-app template for WASM micro-app APIs and future scoped JWT transitions (see [README.md](README.md)).
 
 ## Reference docs
 

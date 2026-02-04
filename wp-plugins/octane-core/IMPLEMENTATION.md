@@ -1,156 +1,17 @@
-# Octane Core Plugin - Implementation Summary
+# Octane Core Plugin - Implementation Summary (Legacy)
 
-## ✅ Completed Tasks
+This implementation is archived and not used by the current architecture.
 
-### 1. **MIME Type Support** ✓
+Current module delivery:
 
-- Added `upload_mimes` filter for `.wasm` files → `application/wasm`
-- Implemented `wp_check_filetype_and_ext` filter for media library support
-- Created automatic `.htaccess` rules (Apache) on plugin activation
-- Includes Cache-Control headers for optimal performance
+- Storage: `headless-wordpress/wordpress/wp-content/wasm`
+- Endpoint: `/wp-json/tak/v1/wasm/{module}`
 
-### 2. **[octane_room] Shortcode** ✓
+See [WASM_INTEGRATION.md](WASM_INTEGRATION.md) for the active workflow.
 
-- Shortcode: `[octane_room name="xyz" width="100%" height="600px"]`
-- Automatically locates `.wasm` and `.js` files in `/rooms/` directory
-- Enqueues ES Module with `type="module"` attribute
-- Supports WebAssembly.instantiateStreaming via JS loader
-
-### 3. **Identity Bridge** ✓
-
-- Extracts user from `X-Forwarded-User` header (AWS IAP/Proxy compatible)
-- Fallback to WordPress authenticated user
-- Uses `wp_localize_script()` to inject `window.OctaneConfig`:
-  ```javascript
-  {
-    identity: "user@example.com",
-    roomName: "example-room",
-    roomToken: "hmac_sha256_hash",
-    wasmUrl: "https://site.com/.../example-room.wasm",
-    apiEndpoint: "https://site.com/wp-json/octane/v1/",
-    graphqlEndpoint: "https://site.com/graphql",
-    timestamp: 1234567890
-  }
-  ```
-- Generates HMAC room tokens for API authentication
-
-### 4. **WPGraphQL Integration** ✓
-
-- Registered `octaneRoomData` GraphQL field:
-  ```graphql
-  query {
-    octaneRoomData(roomName: "example-room")
-  }
-  ```
-- Returns JSON string of room metadata from WordPress custom fields
-- Added `octaneRooms` field on Page type (lists embedded rooms)
-- Registered custom post type: `octane_room` with GraphQL support
-- Implemented `updateOctaneRoomData` mutation for metadata updates
-
-### 5. **Error Handling** ✓
-
-- User-friendly "Room Under Maintenance" message if `.wasm` or `.js` missing
-- Styled maintenance div with emoji, dashed border, and informative text
-- JavaScript error handler catches WASM load failures and displays in-container error
-
-### 6. **File Structure** ✓
-
-```
-wp-plugins/octane-core/
-├── octane-core.php           # Main plugin entry (200+ lines)
-├── inc/
-│   └── graphql-resolvers.php # WPGraphQL integration (150+ lines)
-├── rooms/
-│   ├── example-room.js       # Example ES Module loader
-│   └── README.md             # Room deployment guide
-├── README.md                 # Full documentation
-└── install.sh                # Automated installation script
-```
-
----
-
-## 🎯 Key Features Implemented
-
-| Feature                                | Status | Location                                |
-| -------------------------------------- | ------ | --------------------------------------- |
-| WASM MIME type support                 | ✅     | `octane-core.php` lines 28-47           |
-| `[octane_room]` shortcode              | ✅     | `octane-core.php` lines 110-155         |
-| Identity extraction (X-Forwarded-User) | ✅     | `octane-core.php` lines 50-64           |
-| Room token generation (HMAC)           | ✅     | `octane-core.php` lines 67-71           |
-| `wp_localize_script` config            | ✅     | `octane-core.php` lines 99-107          |
-| WebAssembly.instantiateStreaming       | ✅     | `rooms/example-room.js` lines 58-62     |
-| WPGraphQL `octaneRoomData`             | ✅     | `inc/graphql-resolvers.php` lines 14-53 |
-| Error handling UI                      | ✅     | `octane-core.php` lines 130-145         |
-| .htaccess auto-config                  | ✅     | `octane-core.php` lines 182-200         |
-| REST API endpoint                      | ✅     | `octane-core.php` lines 158-177         |
-
----
-
-## 🚀 Deployment Status
-
-**Plugin Status:** ✅ Active in WordPress
-
-```bash
-# Verified via WP-CLI:
-docker exec -t headless-wp-cli wp plugin list | grep octane-core
-# Output: octane-core | active | none | 1.0.0
-```
-
-**Test Page Created:** ✅ Page ID 6
-
-- URL: `http://localhost:8080/?p=6`
-- Content: `[octane_room name="example-room"]`
-- Renders: Maintenance message (expected, no `.wasm` file uploaded yet)
-
----
-
-## 📖 Usage Examples
-
-### Basic Usage
-
-```html
-<!-- In WordPress page/post editor: -->
-[octane_room name="my-room"]
-```
-
-### Custom Dimensions
-
-```html
-[octane_room name="dashboard" width="1200px" height="800px"]
-```
-
-### GraphQL Query
-
-```graphql
-query GetRoomData {
-  octaneRoomData(roomName: "dashboard")
-}
-```
-
-### GraphQL Mutation
-
-```graphql
-mutation UpdateRoom {
-  updateOctaneRoomData(
-    input: { roomName: "dashboard", metadata: "{\"version\":\"2.0\",\"theme\":\"dark\"}" }
-  ) {
-    success
-    message
-  }
-}
-```
-
----
-
-## 🔐 Security Features
-
-1. **HMAC Room Tokens**
-   - Generated per-room, per-user, per-timestamp
-   - Uses WordPress salt or custom `OCTANE_SECRET_KEY`
-2. **Input Sanitization**
-   - All room names: `sanitize_file_name()`
-   - User identity: `sanitize_text_field()`
-   - Output escaping: `esc_attr()`, `esc_html()`
+- All room names: `sanitize_file_name()`
+- User identity: `sanitize_text_field()`
+- Output escaping: `esc_attr()`, `esc_html()`
 
 3. **Permission Checks**
    - GraphQL mutations require `edit_posts` capability

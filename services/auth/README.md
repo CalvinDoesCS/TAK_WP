@@ -1,6 +1,8 @@
-# Authentication Abstraction Layer
+# Authentication Abstraction Layer (Future Phase)
 
-A pluggable authentication system supporting both **WordPress JWT** (development) and **Azure Entra ID** (enterprise), allowing seamless provider switching without code changes.
+A pluggable authentication system intended for the **Sync & Auth** phase. It supports both **WordPress JWT** (development) and **Azure Entra ID** (enterprise), allowing provider switching without code changes.
+
+**Status:** Optional in Phase 1. Do not introduce auth coupling unless explicitly required.
 
 ## Architecture
 
@@ -13,7 +15,7 @@ AuthProvider Interface
         └── useAuth Hook          (React integration)
 ```
 
-## Quick Start
+## Quick Start (Phase 2+)
 
 ### For Octarine (React/TypeScript)
 

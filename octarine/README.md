@@ -1,30 +1,49 @@
-# React + TypeScript + Vite
+# Octarine (React Shell)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Octarine is the desktop UI shell and window manager for the TAK_WP platform. It launches WordPress-hosted WASM micro-apps and provides a consistent UI/UX layer.
 
-Currently, two official plugins are available:
+## Responsibilities
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Render the shell UI and windowing system
+- Launch WASM micro-apps hosted by WordPress
+- Call exposed WASM APIs for UI/UX actions
 
-## Expanding the ESLint configuration
+## Non-Responsibilities
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- No application state storage
+- No direct ownership of app data
+- No tight coupling to WordPress runtime APIs
 
-- Configure the top-level `parserOptions` property like this:
+## Local Development
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+1. Copy the environment file:
+
+```
+cp .env.example .env
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Start the container:
+
+```
+docker-compose up -d
+```
+
+3. Open the UI:
+
+```
+http://localhost:5173
+```
+
+## Environment Variables
+
+See [octarine/.env.example](octarine/.env.example) for defaults.
+
+- `VITE_API_URL`: WordPress REST API base (used for non-runtime metadata)
+- `VITE_WP_API_BASE`: Base URL for WordPress-hosted WASM modules
+- `PORT`: Vite dev server port
+
+## Architecture Notes
+
+- Octarine treats WASM apps as standalone executables once loaded.
+- Local state is owned by each WASM app (offline-first).
+- Auth and sync are future-phase concerns and must remain optional.

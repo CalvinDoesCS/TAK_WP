@@ -1,36 +1,10 @@
-# Example: Place your compiled .wasm files here
+# Legacy Plugin Directory (Archived)
 
-This directory should contain pairs of files:
+This directory is kept only for historical reference. It is not used by the current architecture.
 
-- `room-name.wasm` - Compiled WebAssembly binary
-- `room-name.js` - ES Module loader that uses WebAssembly.instantiateStreaming
+Current module delivery:
 
-## Quick Start
+- Storage: `headless-wordpress/wordpress/wp-content/wasm`
+- Endpoint: `/wp-json/tak/v1/wasm/{module}`
 
-### 1. Add WASM Files
-
-```bash
-# Copy your compiled WASM binary
-cp path/to/your/room.wasm ./your-room.wasm
-
-# Copy your JS loader
-cp path/to/your/loader.js ./your-room.js
-```
-
-### 2. Use in WordPress
-
-```
-[octane_room name="your-room"]
-```
-
-## File Naming Convention
-
-The room name in the shortcode must match the file names (without extension):
-
-- Shortcode: `[octane_room name="demo"]`
-- Files: `demo.wasm` + `demo.js`
-
-## See Also
-
-- `example-room.js` - Template for creating new loaders
-- `../README.md` - Full plugin documentation
+See [WASM_INTEGRATION.md](WASM_INTEGRATION.md) for the active workflow.

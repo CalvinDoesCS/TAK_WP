@@ -1,16 +1,18 @@
-# Headless WordPress Setup
+# Headless WordPress (Host & Provisioning)
 
-A complete Docker-based headless WordPress installation with WPGraphQL and JWT authentication.
+WordPress acts as the **host and provisioning layer** for WASM micro-apps. It serves WASM files, injects session/config metadata at load time, and owns user identity and provisioning metadata in future phases.
+
+**Important:** WordPress is **not** the runtime database for WASM application state.
 
 ## Features
 
 - **WordPress** latest version
 - **MySQL 8.0** database
-- **WPGraphQL** - GraphQL API for WordPress
-- **JWT Authentication** - Secure token-based authentication
-- **Advanced Custom Fields** - Custom field management
-- **WP-CLI** - Command-line interface for WordPress management
-- **CORS enabled** - For cross-origin requests
+- **WPGraphQL** (optional) for CMS data access
+- **JWT Authentication** (future phase)
+- **Advanced Custom Fields** for content modeling
+- **WP-CLI** for administration
+- **CORS enabled** for WASM module delivery
 
 ## Quick Start
 
@@ -45,9 +47,9 @@ A complete Docker-based headless WordPress installation with WPGraphQL and JWT a
 - **WordPress Admin**: http://localhost:8080/wp-admin
   - Username: `admin`
   - Password: `admin123`
-- **GraphQL Endpoint**: http://localhost:8080/graphql
-- **GraphQL IDE**: http://localhost:8080/graphql (with GraphiQL enabled)
+- **GraphQL Endpoint** (optional): http://localhost:8080/graphql
 - **REST API**: http://localhost:8080/wp-json
+- **WASM Endpoint**: http://localhost:8080/wp-json/tak/v1/wasm/{module}
 
 ## GraphQL Queries
 
@@ -85,7 +87,7 @@ query GetPages {
 }
 ```
 
-## JWT Authentication
+## JWT Authentication (Future Phase)
 
 ### Get Auth Token
 
@@ -158,7 +160,7 @@ docker-compose exec wpcli wp db import /var/www/html/backup.sql
 
 ## Frontend Integration
 
-This headless WordPress can be used with any frontend framework:
+This WordPress host can be used with any frontend framework for **CMS data**. WASM micro-apps should remain autonomous and only rely on WordPress for provisioning or optional metadata.
 
 - **React/Next.js** - Use Apollo Client or urql
 - **Vue/Nuxt** - Use Apollo Client or Vue Apollo
