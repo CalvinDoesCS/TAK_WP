@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import CardCategory1 from '@/components/CardCategory1/CardCategory1'
 import NcModal from '@/components/NcModal/NcModal'
 import Button from '@/components/Button/Button'
@@ -21,31 +21,39 @@ const ModalCategories: FC<ModalCategoriesProps> = () => {
 
 	const T = getTrans()
 
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [queryGetCategories, { loading, error, data, fetchMore, refetch }] =
 		useLazyQuery(QUERY_GET_CATEGORIES, {
-			variables: { first: 20 },
 			notifyOnNetworkStatusChange: true,
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
-			onError: (error) => {
-				if (refetchTimes > 3) {
-					errorHandling(error)
-					return
-				}
-				setRefetchTimes(refetchTimes + 1)
-
-				refetch()
-			},
 		})
+
+	const runQueryGetCategories = () =>
+		queryGetCategories({
+			variables: { first: 20 },
+			context: fetchContext,
+		})
+
+	useEffect(() => {
+		if (!error) return
+		if (refetchTimes > 3) {
+			errorHandling(error)
+			return
+		}
+		setRefetchTimes((prev) => prev + 1)
+		runQueryGetCategories()
+	}, [error, refetchTimes])
 
 	const handleClickShowMore = () => {
 		fetchMore({
 			variables: {
 				after: data?.categories?.pageInfo?.endCursor,
 			},
+			context: fetchContext,
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult || !fetchMoreResult?.categories?.nodes) {
 					return prev
@@ -124,7 +132,7 @@ const ModalCategories: FC<ModalCategoriesProps> = () => {
 						fontSize="text-sm font-medium"
 						onClick={() => {
 							openModal()
-							queryGetCategories()
+							runQueryGetCategories()
 						}}
 					>
 						<CategoryIcon className="-ms-1.5 me-2 h-5 w-5" />

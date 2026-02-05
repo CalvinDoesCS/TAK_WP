@@ -20,17 +20,15 @@ interface Props {
 const CategoriesInput: FC<Props> = ({ onChange, defaultValue }) => {
 	const T = getTrans()
 
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [queryGetCategories, { loading, error, data, fetchMore, called }] =
 		useLazyQuery(QUERY_GET_CATEGORIES, {
 			notifyOnNetworkStatusChange: true,
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
-			variables: {
-				first: 50,
-			},
 		})
 
 	const handleClickShowMore = () => {
@@ -38,6 +36,7 @@ const CategoriesInput: FC<Props> = ({ onChange, defaultValue }) => {
 			variables: {
 				after: data?.categories?.pageInfo?.endCursor,
 			},
+			context: fetchContext,
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult || !fetchMoreResult?.categories?.nodes) {
 					return prev
@@ -68,7 +67,10 @@ const CategoriesInput: FC<Props> = ({ onChange, defaultValue }) => {
 
 	useEffect(() => {
 		if (!isOpen) return
-		queryGetCategories()
+		queryGetCategories({
+			variables: { first: 50 },
+			context: fetchContext,
+		})
 	}, [isOpen])
 
 	useEffect(() => {

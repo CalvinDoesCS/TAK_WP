@@ -32,24 +32,32 @@ const ModalSelectTags: FC<Props> = ({ onUpdated, initIds = [] }) => {
 		setIdSlecteds(initIds)
 	}, [initIds])
 
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [queryGetTags, { loading, error, data, fetchMore, refetch }] =
 		useLazyQuery(QUERY_GET_TAGS, {
 			notifyOnNetworkStatusChange: true,
-			variables: { first: 100 },
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
-			onError: (error) => {
-				if (refetchTimes > 3) {
-					errorHandling(error)
-					return
-				}
-				setRefetchTimes(refetchTimes + 1)
-				refetch()
-			},
 		})
+
+	const runQueryGetTags = () =>
+		queryGetTags({
+			variables: { first: 100 },
+			context: fetchContext,
+		})
+
+	useEffect(() => {
+		if (!error) return
+		if (refetchTimes > 3) {
+			errorHandling(error)
+			return
+		}
+		setRefetchTimes((prev) => prev + 1)
+		runQueryGetTags()
+	}, [error, refetchTimes])
 
 	const tags = (data?.tags?.nodes || []) as FragmentType<
 		typeof NC_TAG_SHORT_FIELDS_FRAGMENT
@@ -60,6 +68,7 @@ const ModalSelectTags: FC<Props> = ({ onUpdated, initIds = [] }) => {
 			variables: {
 				after: data?.tags?.pageInfo?.endCursor,
 			},
+			context: fetchContext,
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult || !fetchMoreResult?.tags?.nodes) {
 					return prev
@@ -166,7 +175,7 @@ const ModalSelectTags: FC<Props> = ({ onUpdated, initIds = [] }) => {
 						}
 						onClick={() => {
 							openModal()
-							queryGetTags()
+							runQueryGetTags()
 						}}
 					>
 						{!!initIds.length && (

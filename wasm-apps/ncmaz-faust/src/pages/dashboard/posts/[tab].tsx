@@ -36,6 +36,12 @@ const Page: FaustPage<{}> = () => {
 
 	const [refetchTimes, setRefetchTimes] = React.useState(0)
 
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [queryGetPostsOfViewer, getPostsOfViewerResult] = useLazyQuery(
 		gql(` query ProfilePageGetViewerPostsByStatus($first: Int, $status: PostStatusEnum, $after: String) {
       viewer {
@@ -57,24 +63,31 @@ const Page: FaustPage<{}> = () => {
 `),
 		{
 			client,
-			variables: {
-				first: GET_POSTS_FIRST_COMMON_FOR_DASHBOARD,
-			},
 			notifyOnNetworkStatusChange: true,
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
-			onError: (error) => {
-				if (refetchTimes > 3) {
-					errorHandling(error)
-				}
-				setRefetchTimes(refetchTimes + 1)
-				getPostsOfViewerResult.refetch()
-			},
 		},
 	)
+
+	useEffect(() => {
+		if (!getPostsOfViewerResult.error) return
+		if (refetchTimes > 3) {
+			errorHandling(getPostsOfViewerResult.error)
+			return
+		}
+		setRefetchTimes((prev) => prev + 1)
+		if (!isAuthenticated || !currentTab) return
+		let status: PostStatusEnum = PostStatusEnum.Publish
+		if (currentTab === 'draft') status = PostStatusEnum.Draft
+		if (currentTab === 'pending') status = PostStatusEnum.Pending
+		if (currentTab === 'trash') status = PostStatusEnum.Trash
+		if (currentTab === 'schedule') status = PostStatusEnum.Future
+		queryGetPostsOfViewer({
+			variables: {
+				first: GET_POSTS_FIRST_COMMON_FOR_DASHBOARD,
+				status,
+			},
+			context: fetchContext,
+		})
+	}, [getPostsOfViewerResult.error, refetchTimes, isAuthenticated, currentTab])
 
 	useEffect(() => {
 		if (isAuthenticated === false) {
@@ -110,6 +123,7 @@ const Page: FaustPage<{}> = () => {
 				first: GET_POSTS_FIRST_COMMON_FOR_DASHBOARD,
 				status,
 			},
+			context: fetchContext,
 		})
 	}, [isAuthenticated, currentTab])
 	//
@@ -121,6 +135,7 @@ const Page: FaustPage<{}> = () => {
 				first: GET_POSTS_FIRST_COMMON_FOR_DASHBOARD,
 				after: getPostsOfViewerResult.data?.viewer?.posts?.pageInfo.endCursor,
 			},
+			context: fetchContext,
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult || !fetchMoreResult?.viewer?.posts) {
 					return prev

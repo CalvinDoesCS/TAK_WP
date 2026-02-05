@@ -79,6 +79,12 @@ const Page: FaustPage<{}> = () => {
 	})
 	const [refetchTimes, setRefetchTimes] = useState(0)
 
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [queryGetViewerProfile, getViewerProfileResult] = useLazyQuery(
 		gql(` query ProfilePageGetAuthorProfile {
 			viewer {
@@ -88,11 +94,6 @@ const Page: FaustPage<{}> = () => {
 	`),
 		{
 			client,
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
 			onCompleted: (data) => {
 				const { ncUserMeta } = getUserDataFromUserCardFragment(
 					data?.viewer || {},
@@ -111,16 +112,20 @@ const Page: FaustPage<{}> = () => {
 					...featuredImage,
 				})
 			},
-			onError: (error) => {
-				if (refetchTimes > 3) {
-					errorHandling(error)
-				}
-				setRefetchTimes(refetchTimes + 1)
-
-				getViewerProfileResult.refetch()
-			},
 		},
 	)
+
+	useEffect(() => {
+		if (!getViewerProfileResult.error) return
+		if (refetchTimes > 3) {
+			errorHandling(getViewerProfileResult.error)
+			return
+		}
+		setRefetchTimes((prev) => prev + 1)
+		if (isAuthenticated) {
+			queryGetViewerProfile({ context: fetchContext })
+		}
+	}, [getViewerProfileResult.error, refetchTimes, isAuthenticated])
 
 	const [mutationUpdateViewerProfile, updateViewerProfileResult] = useMutation(
 		gql(`
@@ -207,7 +212,7 @@ const Page: FaustPage<{}> = () => {
 			return
 		}
 		if (isAuthenticated) {
-			queryGetViewerProfile()
+			queryGetViewerProfile({ context: fetchContext })
 		}
 	}, [isAuthenticated, isReady])
 

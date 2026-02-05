@@ -30,6 +30,12 @@ const Page: FaustPage<SearchPageQueryGetCategoriesBySearchQuery> = (props) => {
 	const search = router.query.search?.[0] || ''
 	const T = getTrans()
 
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [getCategoriesBySearch, getCategoriesBySearchResult] = useLazyQuery(
 		gql(` 
       query queryGetCategoriesBySearchOnSearchPage(
@@ -50,20 +56,13 @@ const Page: FaustPage<SearchPageQueryGetCategoriesBySearchQuery> = (props) => {
     `),
 		{
 			notifyOnNetworkStatusChange: true,
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
-			variables: {
-				search,
-				first: GET_CATEGORIES_FIRST_COMMON,
-			},
-			onError: (error) => {
-				errorHandling(error)
-			},
 		},
 	)
+
+	React.useEffect(() => {
+		if (!getCategoriesBySearchResult.error) return
+		errorHandling(getCategoriesBySearchResult.error)
+	}, [getCategoriesBySearchResult.error])
 
 	const handleClickShowMore = () => {
 		if (!getCategoriesBySearchResult.called) {
@@ -72,6 +71,7 @@ const Page: FaustPage<SearchPageQueryGetCategoriesBySearchQuery> = (props) => {
 					search,
 					after: initPageInfo?.endCursor,
 				},
+				context: fetchContext,
 			})
 		}
 
@@ -80,6 +80,7 @@ const Page: FaustPage<SearchPageQueryGetCategoriesBySearchQuery> = (props) => {
 				search,
 				after: getCategoriesBySearchResult.data?.categories?.pageInfo.endCursor,
 			},
+			context: fetchContext,
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult || !fetchMoreResult.categories?.nodes) {
 					return prev

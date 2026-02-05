@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import NcModal from '@/components/NcModal/NcModal'
 import Button from '@/components/Button/Button'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
@@ -24,23 +24,32 @@ const ModalTags: FC<ModalTagsProps> = ({}) => {
 	const [refetchTimes, setRefetchTimes] = useState(0)
 	const T = getTrans()
 
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [queryGetTags, { loading, error, data, fetchMore, refetch }] =
 		useLazyQuery(QUERY_GET_TAGS, {
 			notifyOnNetworkStatusChange: true,
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
-			onError: (error) => {
-				if (refetchTimes > 3) {
-					errorHandling(error)
-					return
-				}
-				setRefetchTimes(refetchTimes + 1)
-				refetch()
-			},
 		})
+
+	const runQueryGetTags = () =>
+		queryGetTags({
+			variables: { first: 100 },
+			context: fetchContext,
+		})
+
+	useEffect(() => {
+		if (!error) return
+		if (refetchTimes > 3) {
+			errorHandling(error)
+			return
+		}
+		setRefetchTimes((prev) => prev + 1)
+		runQueryGetTags()
+	}, [error, refetchTimes])
 
 	const tags = (data?.tags?.nodes || []) as FragmentType<
 		typeof NC_TAG_SHORT_FIELDS_FRAGMENT
@@ -51,6 +60,7 @@ const ModalTags: FC<ModalTagsProps> = ({}) => {
 			variables: {
 				after: data?.tags?.pageInfo?.endCursor,
 			},
+			context: fetchContext,
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult || !fetchMoreResult?.tags?.nodes) {
 					return prev
@@ -139,7 +149,7 @@ const ModalTags: FC<ModalTagsProps> = ({}) => {
 						fontSize="text-sm font-medium"
 						onClick={() => {
 							openModal()
-							queryGetTags()
+							runQueryGetTags()
 						}}
 					>
 						<TagIcon className="-ms-1.5 me-2 h-5 w-5" />

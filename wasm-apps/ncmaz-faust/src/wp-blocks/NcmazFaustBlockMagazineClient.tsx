@@ -74,20 +74,23 @@ const NcmazFaustBlockMagazineClient: WordPressBlock<
 > = ({ attributes, clientId, parentClientId, renderedHtml, dataObject }) => {
 	const { blockVariation, hasBackground, showViewAll } = attributes || {}
 
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [queryGetPostByVariablesFromSSR, getPostByVariablesFromSSRResult] =
 		useLazyQuery(QUERY_GET_POSTS_BY, {
 			notifyOnNetworkStatusChange: true,
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
-			onError: (error) => {
-				errorHandling(error)
-			},
 		})
 
 	const T = getTrans()
+
+	useEffect(() => {
+		if (!getPostByVariablesFromSSRResult.error) return
+		errorHandling(getPostByVariablesFromSSRResult.error)
+	}, [getPostByVariablesFromSSRResult.error])
 
 	const [dataInitPosts_state, setDataInitPosts_state] = useState<
 		TPostCard[] | null
@@ -162,6 +165,7 @@ const NcmazFaustBlockMagazineClient: WordPressBlock<
 					...(dataInitQueryVariable || {}),
 					after: dataInitPageInfo?.endCursor,
 				},
+				context: fetchContext,
 			})
 			return
 		}
@@ -171,6 +175,7 @@ const NcmazFaustBlockMagazineClient: WordPressBlock<
 				...(dataInitQueryVariable || {}),
 				after: getPostByVariablesFromSSRResult.data?.posts?.pageInfo?.endCursor,
 			},
+			context: fetchContext,
 			updateQuery: (prev, { fetchMoreResult }) => {
 				return updatePostFromUpdateQuery(prev, fetchMoreResult)
 			},

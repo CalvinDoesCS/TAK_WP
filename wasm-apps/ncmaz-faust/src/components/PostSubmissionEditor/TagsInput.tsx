@@ -21,17 +21,15 @@ interface TagsInputProps {
 const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
 	const T = getTrans()
 
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [queryGetTags, { loading, error, data, fetchMore, called }] =
 		useLazyQuery(QUERY_GET_TAGS, {
 			notifyOnNetworkStatusChange: true,
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
-			variables: {
-				first: 50,
-			},
 		})
 
 	const handleClickShowMore = () => {
@@ -39,6 +37,7 @@ const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
 			variables: {
 				after: data?.tags?.pageInfo?.endCursor,
 			},
+			context: fetchContext,
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult || !fetchMoreResult?.tags?.nodes) {
 					return prev
@@ -70,7 +69,10 @@ const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
 		if (!isOpen) {
 			return
 		}
-		queryGetTags()
+		queryGetTags({
+			variables: { first: 50 },
+			context: fetchContext,
+		})
 	}, [isOpen])
 
 	useEffect(() => {

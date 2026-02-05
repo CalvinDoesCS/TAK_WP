@@ -32,31 +32,39 @@ const ModalSelectCategories: FC<Props> = ({ onUpdated, initIds = [] }) => {
 		setIdSlecteds(initIds)
 	}, [initIds])
 
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [queryGetCategories, { loading, error, data, fetchMore, refetch }] =
 		useLazyQuery(QUERY_GET_CATEGORIES, {
-			variables: { first: 100 },
 			notifyOnNetworkStatusChange: true,
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
-			onError: (error) => {
-				if (refetchTimes > 3) {
-					errorHandling(error)
-					return
-				}
-				setRefetchTimes(refetchTimes + 1)
-
-				refetch()
-			},
 		})
+
+	const runQueryGetCategories = () =>
+		queryGetCategories({
+			variables: { first: 100 },
+			context: fetchContext,
+		})
+
+	useEffect(() => {
+		if (!error) return
+		if (refetchTimes > 3) {
+			errorHandling(error)
+			return
+		}
+		setRefetchTimes((prev) => prev + 1)
+		runQueryGetCategories()
+	}, [error, refetchTimes])
 
 	const handleClickShowMore = () => {
 		fetchMore({
 			variables: {
 				after: data?.categories?.pageInfo?.endCursor,
 			},
+			context: fetchContext,
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult || !fetchMoreResult?.categories?.nodes) {
 					return prev
@@ -158,7 +166,7 @@ const ModalSelectCategories: FC<Props> = ({ onUpdated, initIds = [] }) => {
 						}
 						onClick={() => {
 							openModal()
-							queryGetCategories()
+							runQueryGetCategories()
 						}}
 					>
 						{!!initIds.length && (

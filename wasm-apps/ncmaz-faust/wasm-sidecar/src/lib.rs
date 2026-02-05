@@ -1,6 +1,7 @@
 use include_dir::{include_dir, Dir};
 use once_cell::sync::Lazy;
 use std::sync::Mutex;
+use wasm_bindgen::prelude::*;
 
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
@@ -58,41 +59,41 @@ fn mime_for_path(path: &str) -> &'static str {
     }
 }
 
-#[no_mangle]
-pub extern "C" fn alloc(len: usize) -> *mut u8 {
+#[wasm_bindgen]
+pub fn alloc(len: usize) -> *mut u8 {
     let mut buf = Vec::with_capacity(len);
     let ptr = buf.as_mut_ptr();
     std::mem::forget(buf);
     ptr
 }
 
-#[no_mangle]
-pub extern "C" fn dealloc(ptr: *mut u8, len: usize) {
+#[wasm_bindgen]
+pub fn dealloc(ptr: *mut u8, len: usize) {
     unsafe {
         let _ = Vec::from_raw_parts(ptr, 0, len);
     }
 }
 
-#[no_mangle]
-pub extern "C" fn get_file_count() -> usize {
+#[wasm_bindgen]
+pub fn get_file_count() -> usize {
     FILE_PATHS.len()
 }
 
-#[no_mangle]
-pub extern "C" fn get_file_path_ptr(index: usize) -> *const u8 {
+#[wasm_bindgen]
+pub fn get_file_path_ptr(index: usize) -> *const u8 {
     FILE_PATHS
         .get(index)
         .map(|v| v.as_ptr())
         .unwrap_or(std::ptr::null())
 }
 
-#[no_mangle]
-pub extern "C" fn get_file_path_len(index: usize) -> usize {
+#[wasm_bindgen]
+pub fn get_file_path_len(index: usize) -> usize {
     FILE_PATHS.get(index).map(|v| v.len() - 1).unwrap_or(0)
 }
 
-#[no_mangle]
-pub extern "C" fn get_file(path_ptr: *const u8, path_len: usize) -> i32 {
+#[wasm_bindgen]
+pub fn get_file(path_ptr: *const u8, path_len: usize) -> i32 {
     if path_ptr.is_null() || path_len == 0 {
         return 0;
     }
@@ -126,23 +127,23 @@ pub extern "C" fn get_file(path_ptr: *const u8, path_len: usize) -> i32 {
     1
 }
 
-#[no_mangle]
-pub extern "C" fn get_last_file_ptr() -> *const u8 {
+#[wasm_bindgen]
+pub fn get_last_file_ptr() -> *const u8 {
     LAST_FILE.lock().unwrap().as_ptr()
 }
 
-#[no_mangle]
-pub extern "C" fn get_last_file_len() -> usize {
+#[wasm_bindgen]
+pub fn get_last_file_len() -> usize {
     LAST_FILE.lock().unwrap().len()
 }
 
-#[no_mangle]
-pub extern "C" fn get_last_file_mime_ptr() -> *const u8 {
+#[wasm_bindgen]
+pub fn get_last_file_mime_ptr() -> *const u8 {
     LAST_FILE_MIME.lock().unwrap().as_ptr()
 }
 
-#[no_mangle]
-pub extern "C" fn get_last_file_mime_len() -> usize {
+#[wasm_bindgen]
+pub fn get_last_file_mime_len() -> usize {
     let len = LAST_FILE_MIME.lock().unwrap().len();
     if len == 0 {
         0
@@ -151,8 +152,8 @@ pub extern "C" fn get_last_file_mime_len() -> usize {
     }
 }
 
-#[no_mangle]
-pub extern "C" fn receive_wp_data(ptr: *const u8, len: usize) -> i32 {
+#[wasm_bindgen]
+pub fn receive_wp_data(ptr: *const u8, len: usize) -> i32 {
     if ptr.is_null() || len == 0 {
         return 0;
     }
@@ -164,12 +165,12 @@ pub extern "C" fn receive_wp_data(ptr: *const u8, len: usize) -> i32 {
     1
 }
 
-#[no_mangle]
-pub extern "C" fn get_wp_data_ptr() -> *const u8 {
+#[wasm_bindgen]
+pub fn get_wp_data_ptr() -> *const u8 {
     WP_DATA.lock().unwrap().as_ptr()
 }
 
-#[no_mangle]
-pub extern "C" fn get_wp_data_len() -> usize {
+#[wasm_bindgen]
+pub fn get_wp_data_len() -> usize {
     WP_DATA.lock().unwrap().len()
 }

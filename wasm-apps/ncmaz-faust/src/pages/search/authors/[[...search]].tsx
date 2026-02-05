@@ -30,6 +30,12 @@ const Page: FaustPage<SearchPageQueryGetUsersBySearchQuery> = (props) => {
 	const search = router.query.search?.[0] || ''
 	const T = getTrans()
 
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [getUsersBySearch, getUsersBySearchResult] = useLazyQuery(
 		gql(` 
       query queryGetUsersBySearchOnSearchPage(
@@ -50,20 +56,13 @@ const Page: FaustPage<SearchPageQueryGetUsersBySearchQuery> = (props) => {
     `),
 		{
 			notifyOnNetworkStatusChange: true,
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
-			variables: {
-				search,
-				first: GET_USERS_FIRST_COMMON,
-			},
-			onError: (error) => {
-				errorHandling(error)
-			},
 		},
 	)
+
+	React.useEffect(() => {
+		if (!getUsersBySearchResult.error) return
+		errorHandling(getUsersBySearchResult.error)
+	}, [getUsersBySearchResult.error])
 
 	const handleClickShowMore = () => {
 		if (!getUsersBySearchResult.called) {
@@ -72,6 +71,7 @@ const Page: FaustPage<SearchPageQueryGetUsersBySearchQuery> = (props) => {
 					search,
 					after: initPageInfo?.endCursor,
 				},
+				context: fetchContext,
 			})
 		}
 
@@ -80,6 +80,7 @@ const Page: FaustPage<SearchPageQueryGetUsersBySearchQuery> = (props) => {
 				search,
 				after: getUsersBySearchResult.data?.users?.pageInfo.endCursor,
 			},
+			context: fetchContext,
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult || !fetchMoreResult.users?.nodes) {
 					return prev

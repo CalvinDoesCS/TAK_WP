@@ -24,7 +24,7 @@ import { RootState } from '@/stores/store'
 import GraphqlError from '@/components/GraphqlError'
 import { NC_SITE_SETTINGS } from '@/contains/site-settings'
 
-const AuthorSaveChild: FaustPage<PageAuthorBookmarksGetDataQuery> = props => {
+const AuthorSaveChild: FaustPage<PageAuthorBookmarksGetDataQuery> = (props) => {
 	const { user } = props.data || {}
 	const { name, ncUserMeta } = getUserDataFromUserCardFragment(user || {})
 	const { viewer } = useSelector((state: RootState) => state.viewer)
@@ -54,16 +54,18 @@ const AuthorSaveChild: FaustPage<PageAuthorBookmarksGetDataQuery> = props => {
 				first: 20,
 				inUserAndReaction,
 			},
-			onError: error => {
-				if (refetchTimes > 3) {
-					errorHandling(error)
-					return
-				}
-				setRefetchTimes(refetchTimes + 1)
-				refetch()
-			},
 		},
 	)
+
+	React.useEffect(() => {
+		if (!error) return
+		if (refetchTimes > 3) {
+			errorHandling(error)
+			return
+		}
+		setRefetchTimes((prev) => prev + 1)
+		refetch()
+	}, [error, refetchTimes, refetch])
 	//
 
 	const handleClickShowMore = () => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Window, DraggableHandle, ControlButtons } from "@/components/Window";
-import { useWasmLoader } from "@/components/Wasm";
+import { useWasmLoader } from "@/hooks/wasm";
 
 /**
  * DemoRoomApp - Simple WASM Demo Room
@@ -29,7 +29,7 @@ function DemoRoomApp() {
     loading,
     error,
   } = useWasmLoader({
-    moduleName: "demo-room",
+    moduleName: "demo_room",
   });
 
   const [roomState, setRoomState] = React.useState<RoomState>(() => {

@@ -30,6 +30,7 @@ services:
     volumes:
       - wp_data:/var/www/html
       - ./headless-wordpress/config/php.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./wp-plugins/tak-wasm:/var/www/html/wp-content/plugins/tak-wasm
       - ./wp-plugins/octane-core:/var/www/html/wp-content/plugins/octane-core
       - ./wp-plugins/ncmaz-acf:/var/www/html/wp-content/plugins/ncmaz-acf
 
@@ -43,6 +44,7 @@ services:
     user: "33:33"
     volumes:
       - wp_data:/var/www/html
+      - ./wp-plugins/tak-wasm:/var/www/html/wp-content/plugins/tak-wasm
       - ./wp-plugins/octane-core:/var/www/html/wp-content/plugins/octane-core
       - ./wp-plugins/ncmaz-acf:/var/www/html/wp-content/plugins/ncmaz-acf
     environment:

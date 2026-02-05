@@ -26,7 +26,13 @@ const Page: FaustPage<{}> = (props) => {
 	const router = useRouter()
 	const [refetchTimes, setRefetchTimes] = React.useState(0)
 
-	const [getPostForEditPostPage, { called, data, error, loading, refetch }] =
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
+	const [getPostForEditPostPage, { called, data, error, loading }] =
 		useLazyQuery(
 			gql(`
         query GetPostForEditPostPage($databaseId: ID!) {
@@ -38,20 +44,22 @@ const Page: FaustPage<{}> = (props) => {
 			{
 				client,
 				fetchPolicy: 'network-only',
-				context: {
-					fetchOptions: {
-						method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-					},
-				},
-				onError: (error) => {
-					if (refetchTimes > 3) {
-						errorHandling(error)
-					}
-					setRefetchTimes(refetchTimes + 1)
-					refetch()
-				},
 			},
 		)
+
+	useEffect(() => {
+		if (!error) return
+		if (refetchTimes > 3) {
+			errorHandling(error)
+			return
+		}
+		setRefetchTimes((prev) => prev + 1)
+		if (!isAuthenticated || !router.query.id) return
+		getPostForEditPostPage({
+			variables: { databaseId: router.query.id as string },
+			context: fetchContext,
+		})
+	}, [error, refetchTimes, isAuthenticated, router.query.id])
 
 	useEffect(() => {
 		if (!isAuthenticated || !router.query.id) {
@@ -59,6 +67,7 @@ const Page: FaustPage<{}> = (props) => {
 		}
 		getPostForEditPostPage({
 			variables: { databaseId: router.query.id as string },
+			context: fetchContext,
 		})
 	}, [isAuthenticated])
 

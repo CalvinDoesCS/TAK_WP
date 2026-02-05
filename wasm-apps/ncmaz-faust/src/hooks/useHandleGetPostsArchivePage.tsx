@@ -57,36 +57,54 @@ export default function useHandleGetPostsArchivePage(props: Props) {
 		!!(tagInIds && tagInIds.length) ||
 		!!(authorInIds && authorInIds.length) ||
 		!!searchValue
+	const fetchContext = {
+		fetchOptions: {
+			method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
+		},
+	}
+
 	const [queryGetPostsByCategoryId, postsByCategoryIdResult] = useLazyQuery(
 		QUERY_GET_POSTS_BY,
 		{
+			notifyOnNetworkStatusChange: true,
+		},
+	)
+
+	useEffect(() => {
+		if (!postsByCategoryIdResult.error) return
+		if (refetchTimes > 3) {
+			errorHandling(postsByCategoryIdResult.error)
+			return
+		}
+		setRefetchTimes((prev) => prev + 1)
+		const fiterValue = checkRouterQueryFilter()
+		const field = fiterValue
+			? fiterValue.field
+			: PostObjectsConnectionOrderbyEnum.Date
+		const order = fiterValue ? fiterValue.order : OrderEnum.Desc
+		queryGetPostsByCategoryId({
 			variables: {
-				categoryId: categoryDatabaseId,
-				categoryName: categorySlug,
-				tagId: tagDatabaseId?.toString(),
-				author: authorDatabaseId,
+				first: GET_POSTS_FIRST_COMMON,
+				after: '',
+				field,
+				order,
 				categoryIn: categoryInIds || undefined,
 				tagIn: tagInIds || undefined,
 				authorIn: authorInIds || undefined,
 				search: searchValue,
-				first: GET_POSTS_FIRST_COMMON,
 			},
-			notifyOnNetworkStatusChange: true,
-			context: {
-				fetchOptions: {
-					method: process.env.NEXT_PUBLIC_SITE_API_METHOD || 'GET',
-				},
-			},
-			onError: (error) => {
-				if (refetchTimes > 3) {
-					errorHandling(error)
-					return
-				}
-				setRefetchTimes(refetchTimes + 1)
-				postsByCategoryIdResult.refetch()
-			},
-		},
-	)
+			context: fetchContext,
+		})
+	}, [
+		postsByCategoryIdResult.error,
+		refetchTimes,
+		categoryInIds,
+		tagInIds,
+		authorInIds,
+		searchValue,
+		routerQueryFilter,
+		hasClientFilters,
+	])
 
 	function checkRouterQueryFilter(): {
 		field: PostObjectsConnectionOrderbyEnum
@@ -126,6 +144,7 @@ export default function useHandleGetPostsArchivePage(props: Props) {
 				authorIn: authorInIds || undefined,
 				search: searchValue,
 			},
+			context: fetchContext,
 		})
 	}, [
 		routerQueryFilter,
@@ -144,6 +163,7 @@ export default function useHandleGetPostsArchivePage(props: Props) {
 					after: initPostsPageInfo?.endCursor,
 					first: GET_POSTS_FIRST_COMMON,
 				},
+				context: fetchContext,
 			})
 		} else {
 			postsByCategoryIdResult.fetchMore({
@@ -151,6 +171,7 @@ export default function useHandleGetPostsArchivePage(props: Props) {
 					after: postsByCategoryIdResult.data?.posts?.pageInfo?.endCursor,
 					first: GET_POSTS_FIRST_COMMON,
 				},
+				context: fetchContext,
 				updateQuery: (prev, { fetchMoreResult }) => {
 					return updatePostFromUpdateQuery(prev, fetchMoreResult)
 				},

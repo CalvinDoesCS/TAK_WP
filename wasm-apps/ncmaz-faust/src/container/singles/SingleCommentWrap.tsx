@@ -116,16 +116,18 @@ const SingleCommentWrap: FC<SingleCommentWrapProps> = ({
 				first: 40,
 				contentId: postDatabaseId.toString(),
 			},
-			onError: (error) => {
-				if (refetchTimes > 3) {
-					errorHandling(error)
-					return
-				}
-				setRefetchTimes(refetchTimes + 1)
-				refetch()
-			},
 		},
 	)
+
+	useEffect(() => {
+		if (!error) return
+		if (refetchTimes > 3) {
+			errorHandling(error)
+			return
+		}
+		setRefetchTimes((prev) => prev + 1)
+		refetch()
+	}, [error, refetchTimes, refetch])
 	const [mutaionDeleteCommentsById, deleteCommentsByIdResult] = useMutation(
 		QUERY_MUTATION_DELETE_COMMENT_BY_ID,
 		{
