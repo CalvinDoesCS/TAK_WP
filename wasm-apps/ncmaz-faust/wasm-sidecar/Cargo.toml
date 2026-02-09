@@ -1,5 +1,5 @@
 [package]
-name = "ncmaz_faust_sidecar"
+name = "nacmaz_faust"
 version = "0.1.0"
 edition = "2021"
 

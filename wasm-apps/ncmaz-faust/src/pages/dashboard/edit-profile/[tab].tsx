@@ -94,26 +94,29 @@ const Page: FaustPage<{}> = () => {
 	`),
 		{
 			client,
-			onCompleted: (data) => {
-				const { ncUserMeta } = getUserDataFromUserCardFragment(
-					data?.viewer || {},
-				)
-				const bgImage = getImageDataFromImageFragment(
-					ncUserMeta?.backgroundImage?.node,
-				)
-				const featuredImage = getImageDataFromImageFragment(
-					ncUserMeta?.featuredImage?.node,
-				)
-
-				setCoverImage({
-					...bgImage,
-				})
-				setAvatarImage({
-					...featuredImage,
-				})
-			},
 		},
 	)
+
+	// Handle data updates when query completes
+	useEffect(() => {
+		const data = getViewerProfileResult.data
+		if (!data?.viewer) return
+
+		const { ncUserMeta } = getUserDataFromUserCardFragment(data.viewer)
+		const bgImage = getImageDataFromImageFragment(
+			ncUserMeta?.backgroundImage?.node,
+		)
+		const featuredImage = getImageDataFromImageFragment(
+			ncUserMeta?.featuredImage?.node,
+		)
+
+		setCoverImage({
+			...bgImage,
+		})
+		setAvatarImage({
+			...featuredImage,
+		})
+	}, [getViewerProfileResult.data])
 
 	useEffect(() => {
 		if (!getViewerProfileResult.error) return

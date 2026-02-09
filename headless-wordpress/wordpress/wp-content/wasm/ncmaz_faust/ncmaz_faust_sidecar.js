@@ -1,4 +1,4 @@
-/* @ts-self-types="./ncmaz_faust_sidecar.d.ts" */
+/* @ts-self-types="./nacmaz_faust.d.ts" */
 
 //#region exports
 
@@ -141,7 +141,7 @@ function __wbg_get_imports() {
     };
     return {
         __proto__: null,
-        "./ncmaz_faust_sidecar_bg.js": import0,
+        "./nacmaz_faust_bg.js": import0,
     };
 }
 
@@ -233,7 +233,7 @@ async function __wbg_init(module_or_path) {
     }
 
     if (module_or_path === undefined) {
-        module_or_path = new URL('ncmaz_faust_sidecar_bg.wasm', import.meta.url);
+        module_or_path = new URL('nacmaz_faust_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 

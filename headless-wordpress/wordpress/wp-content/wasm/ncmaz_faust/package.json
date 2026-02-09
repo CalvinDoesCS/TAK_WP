@@ -1,14 +1,14 @@
 {
-  "name": "ncmaz_faust_sidecar",
+  "name": "nacmaz_faust",
   "type": "module",
   "version": "0.1.0",
   "files": [
-    "ncmaz_faust_sidecar_bg.wasm",
-    "ncmaz_faust_sidecar.js",
-    "ncmaz_faust_sidecar.d.ts"
+    "nacmaz_faust_bg.wasm",
+    "nacmaz_faust.js",
+    "nacmaz_faust.d.ts"
   ],
-  "main": "ncmaz_faust_sidecar.js",
-  "types": "ncmaz_faust_sidecar.d.ts",
+  "main": "nacmaz_faust.js",
+  "types": "nacmaz_faust.d.ts",
   "sideEffects": [
     "./snippets/*"
   ]

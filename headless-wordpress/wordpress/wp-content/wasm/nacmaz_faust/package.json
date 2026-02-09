@@ -1,0 +1,15 @@
+{
+  "name": "nacmaz_faust",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "nacmaz_faust_bg.wasm",
+    "nacmaz_faust.js",
+    "nacmaz_faust.d.ts"
+  ],
+  "main": "nacmaz_faust.js",
+  "types": "nacmaz_faust.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
