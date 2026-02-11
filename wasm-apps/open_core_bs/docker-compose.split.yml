@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    image: open_core_backend:latest
+    ports:
+      - '8080:80'
+    environment:
+      - APP_ENV=production
+    volumes:
+      - ./:/var/www/html:delegated
+    depends_on:
+      - mysql
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/frontend/Dockerfile
+    image: open_core_frontend:latest
+    ports:
+      - '3000:80'
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - backend
+
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD:-password}'
+      MYSQL_DATABASE: '${DB_DATABASE:-app}'
+      MYSQL_USER: '${DB_USERNAME:-user}'
+      MYSQL_PASSWORD: '${DB_PASSWORD:-password}'
+    ports:
+      - '3306:3306'
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:

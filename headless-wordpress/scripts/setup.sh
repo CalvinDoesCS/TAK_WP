@@ -11,10 +11,10 @@ echo -e "${GREEN}Setting up Headless WordPress...${NC}"
 echo -e "${YELLOW}Waiting for WordPress to initialize...${NC}"
 sleep 20
 
-# Install WordPress core
+# Install WordPress core CHANGE  URL
 echo -e "${YELLOW}Installing WordPress core...${NC}"
 docker-compose exec -T wpcli wp core install \
-  --url="http://localhost:8080" \
+  --url="http://localhost:8080" \ 
   --title="Headless WordPress" \
   --admin_user="admin" \
   --admin_password="admin123" \

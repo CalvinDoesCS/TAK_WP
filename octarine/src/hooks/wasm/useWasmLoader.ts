@@ -29,7 +29,7 @@ export function useWasmLoader(props: WasmLoaderProps) {
         setLoading(true);
         setError(null);
 
-        const wpApiBase = (import.meta as any)?.env?.VITE_WP_API_BASE ?? "http://localhost:8080";
+        const wpApiBase = import.meta.env.VITE_WP_API_BASE ?? "http://localhost:8080";
         const addCacheBuster = (input?: string) => {
           if (!input) return input;
           const separator = input.includes("?") ? "&" : "?";

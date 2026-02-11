@@ -12,6 +12,7 @@ services:
       - ./src:/app/src
       - ./public:/app/public
       - ./index.html:/app/index.html
+      - ./.env:/app/.env
       - ./vite.config.ts:/app/vite.config.ts
       - ./tailwind.config.js:/app/tailwind.config.js
       - ./postcss.config.cjs:/app/postcss.config.cjs
@@ -19,8 +20,13 @@ services:
       - ./components.json:/app/components.json
       # Prevent overwriting node_modules
       - /app/node_modules
+    env_file:
+      - .env
     environment:
       - NODE_ENV=development
+      - VITE_WP_API_BASE=https://astounding-lion-605377.instawp.co
+      - VITE_API_URL=http://localhost:8080/wp-json
+      - VITE_APP_NAME=Octarine Admin Dashboard
     networks:
       - app-network
     command: yarn run dev --host 0.0.0.0

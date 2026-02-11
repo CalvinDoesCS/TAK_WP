@@ -19,7 +19,12 @@ export default defineConfig({
     },
     proxy: {
       '/wp-json': {
-        target: 'http://headless-wp',
+        target: 'https://astounding-lion-605377.instawp.co',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/wp-content': {
+        target: 'https://astounding-lion-605377.instawp.co',
         changeOrigin: true,
         secure: false,
       },

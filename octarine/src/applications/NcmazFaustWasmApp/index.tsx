@@ -9,8 +9,9 @@ import { normalizePath, verifyBlobContent } from "./utils/helpers";
 import type { FileRecord } from "./types";
 
 export default function NcmazFaustWasmApp() {
-  const wpApiBase =
-    (import.meta as any)?.env?.VITE_WP_API_BASE ?? "http://localhost:8080";
+  const wpApiBase = import.meta.env.VITE_WP_API_BASE ?? "http://localhost:8080";
+  console.log("🌍 WordPress API Base:", wpApiBase);
+  console.log("🔍 All VITE env vars:", import.meta.env);
   const wasmBaseUrl = `${wpApiBase}/wp-content/wasm/nacmaz_faust`;
 
   const wasmLoader = useWasmLoader({
@@ -112,7 +113,7 @@ export default function NcmazFaustWasmApp() {
       }
       setPageUrls(urls);
 
-      const preferredPage = "/index.html";
+      const preferredPage = "/posts/index.html";
       const fallbackPage = "/index.html";
       const defaultPage = records[preferredPage]
         ? preferredPage

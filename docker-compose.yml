@@ -1,58 +1,58 @@
 services:
   # WordPress Database
-  wordpress-db:
-    image: mysql:8.0
-    container_name: headless-wp-db
-    restart: unless-stopped
-    environment:
-      MYSQL_DATABASE: ${WP_MYSQL_DATABASE:-wordpress}
-      MYSQL_USER: ${WP_MYSQL_USER:-wordpress}
-      MYSQL_PASSWORD: ${WP_MYSQL_PASSWORD:-wordpress}
-      MYSQL_ROOT_PASSWORD: ${WP_MYSQL_ROOT_PASSWORD:-rootpassword}
-    volumes:
-      - wp_db_data:/var/lib/mysql
+  # wordpress-db:
+  #   image: mysql:8.0
+  #   container_name: headless-wp-db
+  #   restart: unless-stopped
+  #   environment:
+  #     MYSQL_DATABASE: ${WP_MYSQL_DATABASE:-wordpress}
+  #     MYSQL_USER: ${WP_MYSQL_USER:-wordpress}
+  #     MYSQL_PASSWORD: ${WP_MYSQL_PASSWORD:-wordpress}
+  #     MYSQL_ROOT_PASSWORD: ${WP_MYSQL_ROOT_PASSWORD:-rootpassword}
+  #   volumes:
+  #     - wp_db_data:/var/lib/mysql
 
-  # WordPress
-  wordpress:
-    depends_on:
-      - wordpress-db
-    image: wordpress:latest
-    container_name: headless-wp
-    restart: unless-stopped
-    ports:
-      - "${WP_PORT:-8080}:80"
-    environment:
-      WORDPRESS_DB_HOST: wordpress-db:3306
-      WORDPRESS_DB_USER: ${WP_MYSQL_USER:-wordpress}
-      WORDPRESS_DB_PASSWORD: ${WP_MYSQL_PASSWORD:-wordpress}
-      WORDPRESS_DB_NAME: ${WP_MYSQL_DATABASE:-wordpress}
-      WORDPRESS_DEBUG: ${WP_DEBUG:-0}
-    volumes:
-      - wp_data:/var/www/html
-      - ./headless-wordpress/config/php.ini:/usr/local/etc/php/conf.d/custom.ini
-      - ./wp-plugins/tak-wasm:/var/www/html/wp-content/plugins/tak-wasm
-      - ./wp-plugins/octane-core:/var/www/html/wp-content/plugins/octane-core
-      - ./wp-plugins/ncmaz-acf:/var/www/html/wp-content/plugins/ncmaz-acf
+  # # WordPress
+  # wordpress:
+  #   depends_on:
+  #     - wordpress-db
+  #   image: wordpress:latest
+  #   container_name: headless-wp
+  #   restart: unless-stopped
+  #   ports:
+  #     - "${WP_PORT:-8080}:80"
+  #   environment:
+  #     WORDPRESS_DB_HOST: wordpress-db:3306
+  #     WORDPRESS_DB_USER: ${WP_MYSQL_USER:-wordpress}
+  #     WORDPRESS_DB_PASSWORD: ${WP_MYSQL_PASSWORD:-wordpress}
+  #     WORDPRESS_DB_NAME: ${WP_MYSQL_DATABASE:-wordpress}
+  #     WORDPRESS_DEBUG: ${WP_DEBUG:-0}
+  #   volumes:
+  #     - wp_data:/var/www/html
+  #     - ./headless-wordpress/config/php.ini:/usr/local/etc/php/conf.d/custom.ini
+  #     - ./wp-plugins/tak-wasm:/var/www/html/wp-content/plugins/tak-wasm
+  #     - ./wp-plugins/octane-core:/var/www/html/wp-content/plugins/octane-core
+  #     - ./wp-plugins/ncmaz-acf:/var/www/html/wp-content/plugins/ncmaz-acf
 
-  # WP-CLI
-  wpcli:
-    depends_on:
-      - wordpress-db
-      - wordpress
-    image: wordpress:cli
-    container_name: headless-wp-cli
-    user: "33:33"
-    volumes:
-      - wp_data:/var/www/html
-      - ./wp-plugins/tak-wasm:/var/www/html/wp-content/plugins/tak-wasm
-      - ./wp-plugins/octane-core:/var/www/html/wp-content/plugins/octane-core
-      - ./wp-plugins/ncmaz-acf:/var/www/html/wp-content/plugins/ncmaz-acf
-    environment:
-      WORDPRESS_DB_HOST: wordpress-db:3306
-      WORDPRESS_DB_USER: ${WP_MYSQL_USER:-wordpress}
-      WORDPRESS_DB_PASSWORD: ${WP_MYSQL_PASSWORD:-wordpress}
-      WORDPRESS_DB_NAME: ${WP_MYSQL_DATABASE:-wordpress}
-    command: tail -f /dev/null
+  # # WP-CLI
+  # wpcli:
+  #   depends_on:
+  #     - wordpress-db
+  #     - wordpress
+  #   image: wordpress:cli
+  #   container_name: headless-wp-cli
+  #   user: "33:33"
+  #   volumes:
+  #     - wp_data:/var/www/html
+  #     - ./wp-plugins/tak-wasm:/var/www/html/wp-content/plugins/tak-wasm
+  #     - ./wp-plugins/octane-core:/var/www/html/wp-content/plugins/octane-core
+  #     - ./wp-plugins/ncmaz-acf:/var/www/html/wp-content/plugins/ncmaz-acf
+  #   environment:
+  #     WORDPRESS_DB_HOST: wordpress-db:3306
+  #     WORDPRESS_DB_USER: ${WP_MYSQL_USER:-wordpress}
+  #     WORDPRESS_DB_PASSWORD: ${WP_MYSQL_PASSWORD:-wordpress}
+  #     WORDPRESS_DB_NAME: ${WP_MYSQL_DATABASE:-wordpress}
+  #   command: tail -f /dev/null
 
   # Open Core Business Suite - MySQL
   opencore-mysql:
