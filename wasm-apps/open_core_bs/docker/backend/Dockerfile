@@ -18,7 +18,7 @@ RUN docker-php-ext-install pdo pdo_mysql mbstring zip bcmath intl
 
 # Configure nginx
 RUN mkdir -p /run/nginx /var/www/html
-COPY ./default.conf /etc/nginx/conf.d/default.conf
+COPY ./docker/backend/default.conf /etc/nginx/conf.d/default.conf
 
 # copy vendor from composer stage
 WORKDIR /var/www/html
